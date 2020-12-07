@@ -1,0 +1,27 @@
+*~
+*.lock
+*.swp
+*.out
+*.class
+*.metadata
+bin/**
+tmp/**
+tmp/**/*
+build/**
+*.tmp
+*.bak
+*~.nib
+/.settings
+/.classpath
+.classpath
+/.project
+.loadpath
+.apt_generated/
+dist/
+# Locally stored "Eclipse launch configurations"
+*.launch
+/bin
+/target
+.idea/
+*.iml
+/target/
