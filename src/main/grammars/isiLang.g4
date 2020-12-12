@@ -58,17 +58,19 @@ exprLogic2
     ;
 
 exprAritm
-    : expr2
+    : expr2a
     ;
 
 //Esta é a maneira ANTLR4 de lidar com recursões a esquerda e respeitando a precedência. Limpa e sem adaptações.
-expr2
-    : expr2 ('*' | '/') expr2
-    | expr2 ('+' | '-') expr2
-    | '(' expr2 ')'
-    | Num
-    | Id
+expr2a
+    : '(' expr2a ')' expr2b
+    | Num expr2b
+    | Id expr2b
     ;
+
+expr2b
+    : ('*' | '/') expr2a expr2b
+    | ('+' | '-') expr2a expr2b
 
 // ANTLR *TAMBÉM* aceita essas regras como elas estão, ele só falha quando tem recursividade à esquerda indireta
 // Esse é a maneira original deixada no pdf
