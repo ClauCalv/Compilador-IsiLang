@@ -73,18 +73,21 @@ expr2
 // ANTLR *TAMBÉM* aceita essas regras como elas estão, ele só falha quando tem recursividade à esquerda indireta
 // Esse é a maneira original deixada no pdf
 expr3a
-    : termo3 expr3b
+    : termo3a expr3b
     ;
 
 expr3b
-    : '+' termo3 expr3b
-    | '–' termo3 expr3b
+    : '+' termo3a expr3b
+    | '–' termo3a expr3b
     ; 
 
-termo3
-    : termo3 '*' fator3
-    | termo3 '/' fator3
-    | fator3
+termo3a
+    : fator3 termo3b
+    ;
+
+termo3b
+    : '*' fator3 termo3b
+    | '/' fator3 termo3b
     ;
 
 fator3
