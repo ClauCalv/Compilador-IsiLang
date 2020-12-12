@@ -55,6 +55,7 @@ exprLogic1 // Criado na maneira ANTLR4. Se quiser, reescrevam eliminando recursi
 
 exprLogic2
     : Op_log exprLogic1 exprLogic2
+    ;
 
 exprAritm
     : expr2
@@ -71,11 +72,14 @@ expr2
 
 // ANTLR *TAMBÉM* aceita essas regras como elas estão, ele só falha quando tem recursividade à esquerda indireta
 // Esse é a maneira original deixada no pdf
-expr3
-    : expr3 '+' termo3
-    | expr3 '–' termo3
-    | termo3
+expr3a
+    : termo3 expr3b
     ;
+
+expr3b
+    : '+' termo3 expr3b
+    | '–' termo3 expr3b
+    ; 
 
 termo3
     : termo3 '*' fator3
