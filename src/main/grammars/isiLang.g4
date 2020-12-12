@@ -31,7 +31,7 @@ cmdEscrita
     : 'escreva'( Texto | Id ) ;
 
 cmdIf
-    : 'se' '(' exprLogic ')'
+    : 'se' '(' exprLogic1 ')'
         'entao' '{' cmd+ '}'
         ('senao' '{' cmd+ '}' )?
     ;
@@ -42,17 +42,19 @@ cmdExpr
 
 expr
     : exprAritm
-    | exprLogic
+    | exprLogic1
     ;
 
-exprLogic // Criado na maneira ANTLR4. Se quiser, reescrevam eliminando recursividade.
-    : exprAritm Op_rel exprAritm
-    | 'not' exprLogic
-    | exprLogic Op_log exprLogic
-    | '(' exprLogic ')'
-    | LiteralLógico
-    | Id
+exprLogic1 // Criado na maneira ANTLR4. Se quiser, reescrevam eliminando recursividade.
+    : exprAritm Op_rel exprAritm exprLogic2
+    | 'not' exprLogic1 exprLogic2
+    | '(' exprLogic1 ')' exprLogic2
+    | LiteralLógico exprLogic2
+    | Id exprLogic2
     ;
+
+exprLogic2
+    : Op_log exprLogic1 exprLogic2
 
 exprAritm
     : expr2
