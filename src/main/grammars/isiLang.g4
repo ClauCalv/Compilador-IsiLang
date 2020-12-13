@@ -10,7 +10,7 @@ prog
     ;
 
 declara
-    : 'declare' Id (',' Id)* '.'
+    : 'declare' ID (',' ID)* '.'
     ;
 
 bloco
@@ -25,19 +25,19 @@ cmd
     ;
 
 cmdLeitura
-    : 'leia' '(' Id ')';
+    : 'leia' AP ID FP;
 
 cmdEscrita
-    : 'escreva'( Texto | Id ) ;
+    : 'escreva'( TEXT | ID ) ;
 
 cmdIf
-    : 'se' '(' exprLogic ')'
-        'entao' '{' cmd+ '}'
-        ('senao' '{' cmd+ '}' )?
+    : 'se' AP exprLogic FP
+        'entao' AC cmd+ FC
+        ('senao' AC cmd+ FC )?
     ;
 
 cmdExpr
-    : Id ':=' expr
+    : ID ':=' expr
     ;
 
 expr
@@ -46,48 +46,21 @@ expr
     ;
 
 exprLogic // Criado na maneira ANTLR4. Se quiser, reescrevam eliminando recursividade.
-    : exprAritm Op_rel exprAritm
-    | 'not' exprLogic
-    | exprLogic Op_log exprLogic
-    | '(' exprLogic ')'
-    | LiteralLógico
-    | Id
+    : exprAritm REL_OP exprAritm exprLogic2
+    | 'not' exprLogic exprLogic2
+    | AP exprLogic FP exprLogic2
+    | LOGIC_LITERAL exprLogic2
+    | ID exprLogic2
+    ;
+
+exprLogic2
+    : LOG_OP exprLogic exprLogic2
     ;
 
 exprAritm
-    : expr2
+    : expr4
     ;
 
-//Esta é a maneira ANTLR4 de lidar com recursões a esquerda e respeitando a precedência. Limpa e sem adaptações.
-expr2
-    : expr2 ('*' | '/') expr2
-    | expr2 ('+' | '-') expr2
-    | '(' expr2 ')'
-    | Num
-    | Id
-    ;
-
-// ANTLR *TAMBÉM* aceita essas regras como elas estão, ele só falha quando tem recursividade à esquerda indireta
-// Esse é a maneira original deixada no pdf
-expr3
-    : expr3 '+' termo3
-    | expr3 '–' termo3
-    | termo3
-    ;
-
-termo3
-    : termo3 '*' fator3
-    | termo3 '/' fator3
-    | fator3
-    ;
-
-fator3
-    : Num
-    | Id
-    | '(' expr ')'
-    ;
-
-// Agora vamos fazer aquilo que o professor espera para livrar a gramática de recursão pra ganhar nota
 expr4
     : termo4 (('+' | '-') termo4)*
     ;
@@ -97,14 +70,14 @@ termo4
     ;
 
 fator4
-    : Num
-    | Id
-    | '(' expr ')'
+    : NUM
+    | ID
+    | AP expr FP
     ;
 
 
 //TOKENS:
-Op_rel
+REL_OP
     : '<'
     | '>'
     | '<='
@@ -113,24 +86,46 @@ Op_rel
     | '=='
     ;
 
-Op_log
+LOG_OP
     : '&&'
     | '||'
     ;
 
-Texto
+TEXT
     : [0-9a-zA-Z]+
     ;
 
-LiteralLógico
+LOGIC_LITERAL
     : 'Verdadeiro'
     | 'Falso'
     ;
 
-Num
+AP
+    : '('
+    ;
+
+FP
+    : ')'
+    ;
+
+AC
+    : '{'
+    ;
+
+FC
+    : '}'
+    ;
+
+NUM
     : [0-9]+
     ;
 
-Id
+ID
     : [a-zA-Z] [0-9a-zA-Z]*
     ;
+
+WP
+    : (' '
+    | '\n'
+    | '\t'
+    | '\r') -> skip;
