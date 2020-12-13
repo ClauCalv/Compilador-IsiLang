@@ -6,11 +6,11 @@ grammar isiLang;
 // TODO: Remover os exemplos de operação aritmética que eu introduzi e escolher um.
 
 prog
-    : 'programa' declara bloco 'fimprog' END_CMD
+    : BEGIN declara bloco END END_CMD
     ;
 
 declara
-    : 'declare' ID (SEP ID)* END_CMD
+    : DECL ID (SEP ID)* END_CMD
     ;
 
 bloco
@@ -25,7 +25,7 @@ cmd
     ;
 
 cmdLeitura
-    : 'leia' AP ID FP;
+    : CMD_RD AP ID FP;
 
 cmdEscrita
     : 'escreva'( TEXT | ID ) ;
@@ -41,8 +41,8 @@ cmdExpr
     ;
 
 cmdWhile
-    : 'enquanto' AP exprLogic FP
-        'faca' AC bloco FC
+    : CMD_WHILE AP exprLogic FP
+        CMD_DO AC bloco FC
     ;
 
 expr
@@ -136,6 +136,22 @@ CMD_ELSE
     : 'senao'
     ;
 
+CMD_WHILE
+    : 'enquanto'
+    ;
+
+CMD_DO
+    : 'faca'
+    ;
+
+CMD_RD
+    : 'leia'
+    ;
+
+CMD_WT
+    : 'escreva'
+    ;
+
 AP
     : '('
     ;
@@ -180,4 +196,16 @@ END_CMD
 
 SEP
     : ','
+    ;
+
+BEGIN
+    : 'programa'
+    ;
+
+END 
+    : 'fimprog'
+    ;
+
+DECL
+    : 'declare'
     ;
