@@ -1,9 +1,9 @@
 grammar isiLang;
 
 // EDIT Claudio 08.12.2020 : Mexi nas operações aritméticas. Inseri suporte às operações lógicas.
-// TODO: Parar de usar literais nas regras sintáticas quando se poderia introduzir um token.
-// TODO: Renomear as regras para algo mais intuitivo de usar.
-// TODO: Remover os exemplos de operação aritmética que eu introduzi e escolher um.
+// TODO: Renomear as regras para algo mais intuitivo de usar. WHELP -Daniel
+
+// EDIT Daniel e Ricardo 13.12.2020 : Retiramos todos os literais, incluímos um comando de while e resolvemos dois itens do TODO
 
 prog
     : BEGIN declara bloco END END_CMD
