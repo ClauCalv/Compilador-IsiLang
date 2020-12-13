@@ -31,9 +31,9 @@ cmdEscrita
     : 'escreva'( TEXT | ID ) ;
 
 cmdIf
-    : 'se' AP exprLogic FP
-        'entao' AC cmd+ FC
-        ('senao' AC cmd+ FC )?
+    : CMD_IF AP exprLogic FP
+        CMD_THEN AC cmd+ FC
+        (CMD_ELSE AC cmd+ FC )?
     ;
 
 cmdExpr
@@ -47,7 +47,7 @@ expr
 
 exprLogic // Criado na maneira ANTLR4. Se quiser, reescrevam eliminando recursividade.
     : exprAritm REL_OP exprAritm exprLogic2
-    | 'not' exprLogic exprLogic2
+    | NOT_OP exprLogic exprLogic2
     | AP exprLogic FP exprLogic2
     | LOGIC_LITERAL exprLogic2
     | ID exprLogic2
@@ -62,11 +62,11 @@ exprAritm
     ;
 
 expr4
-    : termo4 (('+' | '-') termo4)*
+    : termo4 (ARIT_L termo4)*
     ;
 
 termo4
-    : fator4 (('*' | '/') fator4)*
+    : fator4 (ARIT_H fator4)*
     ;
 
 fator4
@@ -80,6 +80,16 @@ fator4
 
 ATTR
     : ':='
+    ;
+
+ARIT_H
+    : '*'
+    | '/'
+    ;
+
+ARIT_L
+    : '+'
+    | '-'
     ;
 
 REL_OP
@@ -96,6 +106,10 @@ LOG_OP
     | '||'
     ;
 
+NOT_OP
+    : 'nao'
+    ;
+
 TEXT
     : [0-9a-zA-Z]+
     ;
@@ -103,6 +117,18 @@ TEXT
 LOGIC_LITERAL
     : 'Verdadeiro'
     | 'Falso'
+    ;
+
+CMD_IF
+    : 'se'
+    ;
+
+CMD_THEN
+    : 'entao'
+    ;    
+
+CMD_ELSE
+    : 'senao'
     ;
 
 AP
