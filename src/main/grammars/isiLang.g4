@@ -47,7 +47,7 @@ expr
 
 exprLogic // Criado na maneira ANTLR4. Se quiser, reescrevam eliminando recursividade.
     : exprAritm REL_OP exprAritm exprLogic2
-    | 'not' exprLogic exprLogic2
+    | NOT_OP exprLogic exprLogic2
     | AP exprLogic FP exprLogic2
     | LOGIC_LITERAL exprLogic2
     | ID exprLogic2
@@ -104,6 +104,10 @@ REL_OP
 LOG_OP
     : '&&'
     | '||'
+    ;
+
+NOT_OP
+    : 'nao'
     ;
 
 TEXT
