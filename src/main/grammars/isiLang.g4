@@ -1,20 +1,20 @@
 grammar isiLang;
 
 // EDIT Claudio 08.12.2020 : Mexi nas operações aritméticas. Inseri suporte às operações lógicas.
-// TODO: Parar de usar literais nas regras sintáticas quando se poderia introduzir um token.
-// TODO: Renomear as regras para algo mais intuitivo de usar.
-// TODO: Remover os exemplos de operação aritmética que eu introduzi e escolher um.
+// TODO: Renomear as regras para algo mais intuitivo de usar. WHELP -Daniel
+
+// EDIT Daniel e Ricardo 13.12.2020 : Retiramos todos os literais, incluímos um comando de while e resolvemos dois itens do TODO
 
 prog
-    : 'programa' declara bloco 'fimprog' '.'
+    : BEGIN declara bloco END END_CMD
     ;
 
 declara
-    : 'declare' Id (',' Id)* '.'
+    : DECL ID (SEP ID)* END_CMD
     ;
 
 bloco
-    : (cmd '.')+
+    : (cmd END_CMD)+
     ;
 
 cmd
@@ -25,19 +25,24 @@ cmd
     ;
 
 cmdLeitura
-    : 'leia' '(' Id ')';
+    : CMD_RD AP ID FP;
 
 cmdEscrita
-    : 'escreva'( Texto | Id ) ;
+    : 'escreva'( TEXT | ID ) ;
 
 cmdIf
-    : 'se' '(' exprLogic ')'
-        'entao' '{' cmd+ '}'
-        ('senao' '{' cmd+ '}' )?
+    : CMD_IF AP exprLogic FP
+        CMD_THEN AC cmd+ FC
+        (CMD_ELSE AC cmd+ FC )?
     ;
 
 cmdExpr
-    : Id ':=' expr
+    : ID ATTR expr
+    ;
+
+cmdWhile
+    : CMD_WHILE AP exprLogic FP
+        CMD_DO AC bloco FC
     ;
 
 expr
@@ -46,65 +51,53 @@ expr
     ;
 
 exprLogic // Criado na maneira ANTLR4. Se quiser, reescrevam eliminando recursividade.
-    : exprAritm Op_rel exprAritm
-    | 'not' exprLogic
-    | exprLogic Op_log exprLogic
-    | '(' exprLogic ')'
-    | LiteralLógico
-    | Id
+    : exprAritm REL_OP exprAritm exprLogic2
+    | NOT_OP exprLogic exprLogic2
+    | AP exprLogic FP exprLogic2
+    | LOGIC_LITERAL exprLogic2
+    | ID exprLogic2
+    ;
+
+exprLogic2
+    : LOG_OP exprLogic exprLogic2
     ;
 
 exprAritm
-    : expr2
+    : expr4
     ;
 
-//Esta é a maneira ANTLR4 de lidar com recursões a esquerda e respeitando a precedência. Limpa e sem adaptações.
-expr2
-    : expr2 ('*' | '/') expr2
-    | expr2 ('+' | '-') expr2
-    | '(' expr2 ')'
-    | Num
-    | Id
-    ;
-
-// ANTLR *TAMBÉM* aceita essas regras como elas estão, ele só falha quando tem recursividade à esquerda indireta
-// Esse é a maneira original deixada no pdf
-expr3
-    : expr3 '+' termo3
-    | expr3 '–' termo3
-    | termo3
-    ;
-
-termo3
-    : termo3 '*' fator3
-    | termo3 '/' fator3
-    | fator3
-    ;
-
-fator3
-    : Num
-    | Id
-    | '(' expr ')'
-    ;
-
-// Agora vamos fazer aquilo que o professor espera para livrar a gramática de recursão pra ganhar nota
 expr4
-    : termo4 (('+' | '-') termo4)*
+    : termo4 (ARIT_L termo4)*
     ;
 
 termo4
-    : fator4 (('*' | '/') fator4)*
+    : fator4 (ARIT_H fator4)*
     ;
 
 fator4
-    : Num
-    | Id
-    | '(' expr ')'
+    : NUM
+    | ID
+    | AP expr FP
     ;
 
 
 //TOKENS:
-Op_rel
+
+ATTR
+    : ':='
+    ;
+
+ARIT_H
+    : '*'
+    | '/'
+    ;
+
+ARIT_L
+    : '+'
+    | '-'
+    ;
+
+REL_OP
     : '<'
     | '>'
     | '<='
@@ -113,24 +106,106 @@ Op_rel
     | '=='
     ;
 
-Op_log
+LOG_OP
     : '&&'
     | '||'
     ;
 
-Texto
+NOT_OP
+    : 'nao'
+    ;
+
+TEXT
     : [0-9a-zA-Z]+
     ;
 
-LiteralLógico
+LOGIC_LITERAL
     : 'Verdadeiro'
     | 'Falso'
     ;
 
-Num
+CMD_IF
+    : 'se'
+    ;
+
+CMD_THEN
+    : 'entao'
+    ;    
+
+CMD_ELSE
+    : 'senao'
+    ;
+
+CMD_WHILE
+    : 'enquanto'
+    ;
+
+CMD_DO
+    : 'faca'
+    ;
+
+CMD_RD
+    : 'leia'
+    ;
+
+CMD_WT
+    : 'escreva'
+    ;
+
+AP
+    : '('
+    ;
+
+FP
+    : ')'
+    ;
+
+AC
+    : '{'
+    ;
+
+FC
+    : '}'
+    ;
+
+NUM
+    : NUM_INT
+    | NUM_DEC
+    ;
+
+NUM_INT
     : [0-9]+
     ;
 
-Id
+NUM_DEC
+    : [0-9]+ SEP [0-9]+
+
+ID
     : [a-zA-Z] [0-9a-zA-Z]*
+    ;
+
+WP
+    : (' '
+    | '\n'
+    | '\t'
+    | '\r') -> skip;
+
+END_CMD
+    : '.'
+    ;
+
+SEP
+    : ','
+    ;
+
+BEGIN
+    : 'programa'
+    ;
+
+END 
+    : 'fimprog'
+    ;
+
+DECL
+    : 'declare'
     ;
