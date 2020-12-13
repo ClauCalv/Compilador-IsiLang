@@ -153,8 +153,16 @@ FC
     ;
 
 NUM
+    : NUM_INT
+    | NUM_DEC
+    ;
+
+NUM_INT
     : [0-9]+
     ;
+
+NUM_DEC
+    : [0-9]+ SEP [0-9]+
 
 ID
     : [a-zA-Z] [0-9a-zA-Z]*
