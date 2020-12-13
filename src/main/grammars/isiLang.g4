@@ -31,9 +31,9 @@ cmdEscrita
     : 'escreva'( TEXT | ID ) ;
 
 cmdIf
-    : 'se' AP exprLogic FP
-        'entao' AC cmd+ FC
-        ('senao' AC cmd+ FC )?
+    : CMD_IF AP exprLogic FP
+        CMD_THEN AC cmd+ FC
+        (CMD_ELSE AC cmd+ FC )?
     ;
 
 cmdExpr
@@ -113,6 +113,18 @@ TEXT
 LOGIC_LITERAL
     : 'Verdadeiro'
     | 'Falso'
+    ;
+
+CMD_IF
+    : 'se'
+    ;
+
+CMD_THEN
+    : 'entao'
+    ;    
+
+CMD_ELSE
+    : 'senao'
     ;
 
 AP
