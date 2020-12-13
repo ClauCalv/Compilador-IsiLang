@@ -40,6 +40,11 @@ cmdExpr
     : ID ATTR expr
     ;
 
+cmdWhile
+    : 'enquanto' AP exprLogic FP
+        'faca' AC bloco FC
+    ;
+
 expr
     : exprAritm
     | exprLogic
