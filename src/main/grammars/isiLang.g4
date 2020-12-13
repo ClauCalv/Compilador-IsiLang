@@ -37,7 +37,7 @@ cmdIf
     ;
 
 cmdExpr
-    : ID ':=' expr
+    : ID ATTR expr
     ;
 
 expr
@@ -77,6 +77,11 @@ fator4
 
 
 //TOKENS:
+
+ATTR
+    : ':='
+    ;
+
 REL_OP
     : '<'
     | '>'
