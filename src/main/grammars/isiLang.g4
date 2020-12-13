@@ -6,15 +6,15 @@ grammar isiLang;
 // TODO: Remover os exemplos de operação aritmética que eu introduzi e escolher um.
 
 prog
-    : 'programa' declara bloco 'fimprog' '.'
+    : 'programa' declara bloco 'fimprog' END_CMD
     ;
 
 declara
-    : 'declare' ID (',' ID)* '.'
+    : 'declare' ID (SEP ID)* END_CMD
     ;
 
 bloco
-    : (cmd '.')+
+    : (cmd END_CMD)+
     ;
 
 cmd
@@ -160,3 +160,11 @@ WP
     | '\n'
     | '\t'
     | '\r') -> skip;
+
+END_CMD
+    : '.'
+    ;
+
+SEP
+    : ','
+    ;
