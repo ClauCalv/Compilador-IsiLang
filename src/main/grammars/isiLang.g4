@@ -62,11 +62,11 @@ exprAritm
     ;
 
 expr4
-    : termo4 (('+' | '-') termo4)*
+    : termo4 (ARIT_L termo4)*
     ;
 
 termo4
-    : fator4 (('*' | '/') fator4)*
+    : fator4 (ARIT_H fator4)*
     ;
 
 fator4
@@ -80,6 +80,16 @@ fator4
 
 ATTR
     : ':='
+    ;
+
+ARIT_H
+    : '*'
+    | '/'
+    ;
+
+ARIT_L
+    : '+'
+    | '-'
     ;
 
 REL_OP
