@@ -45,7 +45,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
 
         for(Variable v : variables.values()){
             if(v.state == NOT_INITIALIZED || v.type == UNKNOWN){
-                error();
+                error("Variável não inicializada.");
             } else if(v.initializer == null) {
                 String output = v.type.toJava() + " " + v.name + ";\n";
                 varDecls.add(new Command(output));
@@ -81,13 +81,13 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitVarDeclare(IsiLangParser.VarDeclareContext ctx) {
         String ID = ctx.ID().getText();
         if(variables.containsKey(ID))
-            error();
+            error("Variável já declarada.");
 
         Variable v;
         if(ctx.expr() != null) {
             ContextReturn r = visitExpr(ctx.expr());
             if(!variables.get(ID).setType(r.type))
-                error();
+                error("Eu não sei o que você está fazendo e você provavelmente também não sabe.");
             v = new Variable(ID, r.translationJava);
         } else
             v = new Variable(ID);
@@ -100,7 +100,10 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitCmdLeitura(IsiLangParser.CmdLeituraContext ctx) {
         String ID = ctx.ID().getText();
         if(!variables.containsKey(ID))
-            error();
+            error("Variável não declarada.");
+
+        if(!variables.get(ID).setType(TEXT))
+            error("Tipo incompatível com texto.");
 
         String output = ID + "= scanner.nextLine();\n";
         commandStack.peek().add(new Command(output));
@@ -120,7 +123,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitCmdIf(IsiLangParser.CmdIfContext ctx) {
         ContextReturn t = visitExprLogic(ctx.exprLogic());
         if(t.type != LOGIC)
-            error();
+            error("Condicional do bloco \"se\" deve ser expressão lógica.");
 
         String startExpr = "if (" + t.translationJava + ")";
         String midExpr = "";
@@ -171,11 +174,11 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitCmdAttrib(IsiLangParser.CmdAttribContext ctx) {
         String ID = ctx.ID().getText();
         if(!variables.containsKey(ID))
-            error();
+            error("Variável não declarada.");
 
         ContextReturn t = visitExpr(ctx.expr());
         if(variables.get(ID).setType(t.type))
-            error();
+            error("Tipo incompátível com a expressão.");
 
         String command = ID + " = " + t.translationJava + ";\n";
         commandStack.peek().add(new Command(command));
@@ -186,7 +189,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitCmdWhile(IsiLangParser.CmdWhileContext ctx) {
         ContextReturn t = visitExprLogic(ctx.exprLogic());
         if(t.type != LOGIC)
-            error();
+            error("Condicional do bloco \"enquanto\" deve ser expressão lógica.");
 
         String startExpr = "while (" + t.translationJava + ")";
         String endExpr = "";
@@ -225,7 +228,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
                 content = "String.valueOf("+t.translationJava+")";
                 break;
             case UNKNOWN:
-                error();
+                error("Variável não inicializada.");
         }
 
         return new ContextReturn(TEXT, content);
@@ -261,9 +264,9 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitIdText(IsiLangParser.IdTextContext ctx) {
         String ID = ctx.ID().getText();
         if(!variables.containsKey(ID))
-            error();
+            error("Variável não declarada.");
         if(variables.get(ID).getType() != TEXT)
-            error();
+            error("Tipo não compatível com tipo texto.");
         return new ContextReturn(TEXT, ID);
     }
 
@@ -304,7 +307,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
                 content = "false";
                 break;
             default:
-                error();;
+                error("Parâmetro inválido.");;
         }
         return new ContextReturn(LOGIC, content);
     }
@@ -313,9 +316,9 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitIdLogic(IsiLangParser.IdLogicContext ctx) {
         String ID = ctx.ID().getText();
         if(!variables.containsKey(ID))
-            error();
+            error("Variável não declarada.");
         if(variables.get(ID).getType() != LOGIC)
-            error();
+            error("Tipo não compatível com booleano.");
         return new ContextReturn(LOGIC, ID);
     }
 
@@ -384,9 +387,9 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitIdNum(IsiLangParser.IdNumContext ctx) {
         String ID = ctx.ID().getText();
         if(!variables.containsKey(ID))
-            error();
+            error("Variável não declarada.");
         if(variables.get(ID).getType() != NUMERIC)
-            error();
+            error("Tipo não compartível com número.");
         return new ContextReturn(NUMERIC, ID);
     }
 
@@ -410,7 +413,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
                 content = "(" + expr.translationJava + "? 1 : 0 )";
                 break;
             case UNKNOWN:
-                error();
+                error("Variável não inicializada.");
         }
 
         return new ContextReturn(NUMERIC, content);
