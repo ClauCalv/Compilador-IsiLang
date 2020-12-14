@@ -24,7 +24,8 @@ public class Main {
         }
         final Path inputFile = Path.of(args[0]).toAbsolutePath();
         final String fileName = inputFile.getFileName()
-                                         .toString();
+                                         .toString()
+                                         .split("\\.")[0];
 
         final InputStream is = new FileInputStream(inputFile.toString());
         final ANTLRInputStream input = new ANTLRInputStream(is);
