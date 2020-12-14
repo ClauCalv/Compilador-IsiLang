@@ -1,4 +1,4 @@
-grammar isiLang;
+grammar IsiLang;
 
 // EDIT Claudio 08.12.2020 : Mexi nas operações aritméticas. Inseri suporte às operações lógicas.
 // TODO: Renomear as regras para algo mais intuitivo de usar. WHELP -Daniel
@@ -12,7 +12,11 @@ prog
     ;
 
 declara
-    : DECL ID (SEP ID)* END_CMD
+    : DECL varDeclare (SEP varDeclare)* END_CMD
+    ;
+
+varDeclare
+    : ID (ATTR expr)?
     ;
 
 bloco
@@ -22,8 +26,9 @@ bloco
 cmd
     : cmdLeitura
     | cmdEscrita
-    | cmdExpr
+    | cmdAttrib
     | cmdIf
+    | cmdWhile
     ;
 
 cmdLeitura
@@ -43,7 +48,7 @@ cmdBlock
     | cmd
     ;
 
-cmdExpr
+cmdAttrib
     : ID ATTR expr
     ;
 
@@ -71,7 +76,7 @@ exprText2
     : CONCAT_OP exprText
     ;
 
-exprLogic // Recursividade à esquerda eliminada, mas ficou muito feio
+exprLogic
     : exprLogic1 exprLogic2?
     ;
 
