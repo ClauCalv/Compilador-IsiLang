@@ -28,7 +28,7 @@ cmdLeitura
     : CMD_RD AP ID FP;
 
 cmdEscrita
-    : 'escreva'( TEXT | ID ) ;
+    : CMD_WT AP ( TEXT | ID ) FP;
 
 cmdIf
     : CMD_IF AP exprLogic FP
