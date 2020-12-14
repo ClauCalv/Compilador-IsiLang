@@ -5,6 +5,8 @@ grammar isiLang;
 
 // EDIT Daniel e Ricardo 13.12.2020 : Retiramos todos os literais, incluímos um comando de while e resolvemos dois itens do TODO
 
+// EDIT Claudio 14.12.2020 : Adicionei suporte a texto. Mexi nos IFs. Organizei os tokens em categorias.
+
 prog
     : BEGIN declara bloco END END_CMD
     ;
@@ -28,12 +30,17 @@ cmdLeitura
     : CMD_RD AP ID FP;
 
 cmdEscrita
-    : CMD_WT AP ( TEXT | ID ) FP;
+    : CMD_WT AP ( expr ) FP;
 
 cmdIf
     : CMD_IF AP exprLogic FP
-        CMD_THEN AC cmd+ FC
-        (CMD_ELSE AC cmd+ FC )?
+        CMD_THEN cmdBlock
+        (CMD_ELSE cmdBlock )?
+    ;
+
+cmdBlock
+    : AC bloco FC
+    | cmd
     ;
 
 cmdExpr
@@ -46,42 +53,58 @@ cmdWhile
     ;
 
 expr
-    : exprAritm
+    : exprText
     | exprLogic
+    | exprAritm
     ;
 
-exprLogic // Criado na maneira ANTLR4. Se quiser, reescrevam eliminando recursividade.
-    : exprAritm REL_OP exprAritm exprLogic2
-    | NOT_OP exprLogic exprLogic2
-    | AP exprLogic FP exprLogic2
-    | LOGIC_LITERAL exprLogic2
-    | ID exprLogic2
+exprText
+    : exprText1 exprText2?
+    ;
+
+exprText1
+    : CMD_TEXT AP expr FP
+    | TEXT_LITERAL
+    ;
+
+exprText2
+    : CONCAT_OP exprText
+    ;
+
+exprLogic // Recursividade à esquerda eliminada, mas ficou muito feio
+    : exprLogic1 exprLogic2?
+    ;
+
+exprLogic1
+    : exprAritm REL_OP exprAritm
+    | NOT_OP exprLogic
+    | AP exprLogic FP
+    | LOGIC_LITERAL
+    | ID
     ;
 
 exprLogic2
-    : LOG_OP exprLogic exprLogic2
+    : LOG_OP exprLogic
     ;
 
 exprAritm
-    : expr4
+    : exprAritm2 (ARIT_L exprAritm2)*
     ;
 
-expr4
-    : termo4 (ARIT_L termo4)*
+exprAritm2
+    : exprAritm3 (ARIT_H exprAritm3)*
     ;
 
-termo4
-    : fator4 (ARIT_H fator4)*
-    ;
-
-fator4
-    : NUM
+exprAritm3
+    : NUMERIC_LITERAL
     | ID
     | AP expr FP
     ;
 
 
-//TOKENS:
+////// TOKENS:
+
+// Operadores:
 
 ATTR
     : ':='
@@ -112,16 +135,29 @@ LOG_OP
     ;
 
 NOT_OP
-    : 'nao'
+    : '!' //Era 'não'
     ;
 
-TEXT
-    : [0-9a-zA-Z]+
+CONCAT_OP // Estou criando agora
+    : '++'
     ;
 
-LOGIC_LITERAL
-    : 'Verdadeiro'
-    | 'Falso'
+// Comandos:
+
+CMD_TEXT // Estou criando agora
+    : 'texto'
+    ;
+
+BEGIN
+    : 'programa'
+    ;
+
+END
+    : 'fimprog'
+    ;
+
+DECL
+    : 'declare'
     ;
 
 CMD_IF
@@ -130,7 +166,7 @@ CMD_IF
 
 CMD_THEN
     : 'entao'
-    ;    
+    ;
 
 CMD_ELSE
     : 'senao'
@@ -152,6 +188,59 @@ CMD_WT
     : 'escreva'
     ;
 
+// ID e Literais:
+
+ID
+    : ALPHABETIC (ALPHABETIC | NUMERIC | '_')*
+    ;
+
+TEXT_LITERAL
+    : TEXT_DECL TEXT_ELEM* TEXT_DECL
+    ;
+
+fragment
+TEXT_ELEM
+    : ~["\\] // TUDO MENOS ASPAS E BARRA
+    | '\\' ["\\] // OU ASPAS E BARRA COM UMA BARRA ATRÁS
+    ;
+
+fragment
+TEXT_DECL
+    : '"'
+    ;
+
+LOGIC_LITERAL
+    : 'Verdadeiro'
+    | 'Falso'
+    ;
+
+NUMERIC_LITERAL
+    : NUM_INT
+    | NUM_DEC
+    ;
+
+fragment
+NUM_INT
+    : NUMERIC+
+    ;
+
+fragment
+NUM_DEC
+    : NUMERIC+ SEP NUMERIC+
+    ;
+
+fragment
+NUMERIC
+    : [0-9]
+    ;
+
+fragment
+ALPHABETIC
+    : [a-zA-Z]
+    ;
+
+// Outros tokens:
+
 AP
     : '('
     ;
@@ -168,28 +257,6 @@ FC
     : '}'
     ;
 
-NUM
-    : NUM_INT
-    | NUM_DEC
-    ;
-
-NUM_INT
-    : [0-9]+
-    ;
-
-NUM_DEC
-    : [0-9]+ SEP [0-9]+
-
-ID
-    : [a-zA-Z] [0-9a-zA-Z]*
-    ;
-
-WP
-    : (' '
-    | '\n'
-    | '\t'
-    | '\r') -> skip;
-
 END_CMD
     : '.'
     ;
@@ -198,14 +265,9 @@ SEP
     : ','
     ;
 
-BEGIN
-    : 'programa'
-    ;
+WP
+    : (' '
+    | '\n'
+    | '\t'
+    | '\r') -> skip;
 
-END 
-    : 'fimprog'
-    ;
-
-DECL
-    : 'declare'
-    ;
