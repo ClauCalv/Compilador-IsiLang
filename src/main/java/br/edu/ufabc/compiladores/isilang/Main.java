@@ -30,10 +30,11 @@ public class Main {
         IsiLangParser parser = new IsiLangParser(tokens);
         ParseTree tree = parser.prog();
 
-        IsiLangCVisitor eval = new IsiLangCVisitor();
+        IsiLangJavaVisitor eval = new IsiLangJavaVisitor("IsiCode");
         eval.visit(tree);
+        String finaltext = eval.getFinalText();
 
-        // TODO
+        // TODO print finalText somewhere
     }
 
 }

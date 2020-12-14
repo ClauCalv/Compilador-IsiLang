@@ -5,11 +5,20 @@ public class Variable {
 
     public VariableState state;
     public VariableType type;
+    public final String initializer;
 
     public Variable(String name) {
         this.name = name;
         this.type = VariableType.UNKNOWN;
         this.state = VariableState.NOT_INITIALIZED;
+        this.initializer = null;
+    }
+
+    public Variable(String name, String initializer) {
+        this.name = name;
+        this.type = VariableType.UNKNOWN;
+        this.state = VariableState.NOT_INITIALIZED;
+        this.initializer = initializer;
     }
 
     public VariableState getState() {
@@ -22,7 +31,7 @@ public class Variable {
 
     public boolean setType(VariableType type) {
         if(state == VariableState.INITIALIZED)
-            return false;
+            return this.type == type;
         this.type = type;
         this.state = VariableState.INITIALIZED;
         return true;
@@ -33,21 +42,19 @@ public class Variable {
     }
 
     enum VariableType {
-        TEXT("String", "char[]"), NUMERIC("double", "double"), LOGIC("boolean", "bool"), UNKNOWN("#UNKNOWN#", "#UNKNOWN#");
+        TEXT("String"),
+        NUMERIC("double"),
+        LOGIC("boolean"),
+        UNKNOWN("#UNKNOWN#");
 
-        private final String java, c;
+        private final String java;
 
-        VariableType(String java, String c) {
+        VariableType(String java) {
             this.java = java;
-            this.c = c;
         }
 
         public String toJava() {
             return java;
-        }
-
-        public String toC(){
-            return c;
         }
     }
 }

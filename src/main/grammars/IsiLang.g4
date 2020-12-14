@@ -32,15 +32,25 @@ cmd
     ;
 
 cmdLeitura
-    : CMD_RD AP ID FP;
+    : CMD_RD AP ID FP
+    ;
 
 cmdEscrita
-    : CMD_WT AP ( expr ) FP;
+    : CMD_WT AP ( expr ) FP
+    ;
 
 cmdIf
     : CMD_IF AP exprLogic FP
-        CMD_THEN cmdBlock
-        (CMD_ELSE cmdBlock )?
+        CMD_THEN thenCmd
+        (CMD_ELSE elseCmd )?
+    ;
+
+thenCmd
+    : cmdBlock
+    ;
+
+elseCmd
+    : cmdBlock
     ;
 
 cmdBlock
@@ -54,7 +64,7 @@ cmdAttrib
 
 cmdWhile
     : CMD_WHILE AP exprLogic FP
-        CMD_DO AC bloco FC
+        CMD_DO cmdBlock
     ;
 
 expr
@@ -68,8 +78,21 @@ exprText
     ;
 
 exprText1
+    : stringTypeCast
+    | stringLiteral
+    | idText
+    ;
+
+idText
+    : ID
+    ;
+
+stringTypeCast
     : CMD_TEXT AP expr FP
-    | TEXT_LITERAL
+    ;
+
+stringLiteral
+    : TEXT_LITERAL
     ;
 
 exprText2
@@ -81,11 +104,31 @@ exprLogic
     ;
 
 exprLogic1
-    : exprAritm REL_OP exprAritm
-    | NOT_OP exprLogic
-    | AP exprLogic FP
-    | LOGIC_LITERAL
-    | ID
+    : aritmRelation
+    | log_negation
+    | parent_logic
+    | bool_literal
+    | idLogic
+    ;
+
+aritmRelation
+    : ex1=exprAritm REL_OP ex2=exprAritm
+    ;
+
+log_negation
+    : NOT_OP exprLogic
+    ;
+
+parent_logic
+    : AP exprLogic FP
+    ;
+
+bool_literal
+    : LOGIC_LITERAL
+    ;
+
+idLogic
+    : ID
     ;
 
 exprLogic2
@@ -101,9 +144,26 @@ exprAritm2
     ;
 
 exprAritm3
+    : numLit
+    | idNum
+    | numParen
+    | numCast
+    ;
+
+numLit
     : NUMERIC_LITERAL
-    | ID
-    | AP expr FP
+    ;
+
+idNum
+    : ID
+    ;
+
+numParen
+    : AP exprAritm FP
+    ;
+
+numCast
+    : CMD_NUM AP expr FP
     ;
 
 
@@ -151,6 +211,10 @@ CONCAT_OP // Estou criando agora
 
 CMD_TEXT // Estou criando agora
     : 'texto'
+    ;
+
+CMD_NUM
+    : 'num'
     ;
 
 BEGIN

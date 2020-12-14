@@ -16,276 +16,444 @@ public class IsiLangBaseListener implements IsiLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterProg(IsiLangParser.ProgContext ctx) { }
+	@Override public void enterProg(IsiLangParser.ProgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitProg(IsiLangParser.ProgContext ctx) { }
+	@Override public void exitProg(IsiLangParser.ProgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterDeclara(IsiLangParser.DeclaraContext ctx) { }
+	@Override public void enterDeclara(IsiLangParser.DeclaraContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitDeclara(IsiLangParser.DeclaraContext ctx) { }
+	@Override public void exitDeclara(IsiLangParser.DeclaraContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterVarDeclare(IsiLangParser.VarDeclareContext ctx) { }
+	@Override public void enterVarDeclare(IsiLangParser.VarDeclareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitVarDeclare(IsiLangParser.VarDeclareContext ctx) { }
+	@Override public void exitVarDeclare(IsiLangParser.VarDeclareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterBloco(IsiLangParser.BlocoContext ctx) { }
+	@Override public void enterBloco(IsiLangParser.BlocoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitBloco(IsiLangParser.BlocoContext ctx) { }
+	@Override public void exitBloco(IsiLangParser.BlocoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterCmd(IsiLangParser.CmdContext ctx) { }
+	@Override public void enterCmd(IsiLangParser.CmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitCmd(IsiLangParser.CmdContext ctx) { }
+	@Override public void exitCmd(IsiLangParser.CmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterCmdLeitura(IsiLangParser.CmdLeituraContext ctx) { }
+	@Override public void enterCmdLeitura(IsiLangParser.CmdLeituraContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitCmdLeitura(IsiLangParser.CmdLeituraContext ctx) { }
+	@Override public void exitCmdLeitura(IsiLangParser.CmdLeituraContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterCmdEscrita(IsiLangParser.CmdEscritaContext ctx) { }
+	@Override public void enterCmdEscrita(IsiLangParser.CmdEscritaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitCmdEscrita(IsiLangParser.CmdEscritaContext ctx) { }
+	@Override public void exitCmdEscrita(IsiLangParser.CmdEscritaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterCmdIf(IsiLangParser.CmdIfContext ctx) { }
+	@Override public void enterCmdIf(IsiLangParser.CmdIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitCmdIf(IsiLangParser.CmdIfContext ctx) { }
+	@Override public void exitCmdIf(IsiLangParser.CmdIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterCmdBlock(IsiLangParser.CmdBlockContext ctx) { }
+	@Override public void enterThenCmd(IsiLangParser.ThenCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitCmdBlock(IsiLangParser.CmdBlockContext ctx) { }
+	@Override public void exitThenCmd(IsiLangParser.ThenCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterCmdAttrib(IsiLangParser.CmdAttribContext ctx) { }
+	@Override public void enterElseCmd(IsiLangParser.ElseCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitCmdAttrib(IsiLangParser.CmdAttribContext ctx) { }
+	@Override public void exitElseCmd(IsiLangParser.ElseCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterCmdWhile(IsiLangParser.CmdWhileContext ctx) { }
+	@Override public void enterCmdBlock(IsiLangParser.CmdBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitCmdWhile(IsiLangParser.CmdWhileContext ctx) { }
+	@Override public void exitCmdBlock(IsiLangParser.CmdBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExpr(IsiLangParser.ExprContext ctx) { }
+	@Override public void enterCmdAttrib(IsiLangParser.CmdAttribContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExpr(IsiLangParser.ExprContext ctx) { }
+	@Override public void exitCmdAttrib(IsiLangParser.CmdAttribContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExprText(IsiLangParser.ExprTextContext ctx) { }
+	@Override public void enterCmdWhile(IsiLangParser.CmdWhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExprText(IsiLangParser.ExprTextContext ctx) { }
+	@Override public void exitCmdWhile(IsiLangParser.CmdWhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExprText1(IsiLangParser.ExprText1Context ctx) { }
+	@Override public void enterExpr(IsiLangParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExprText1(IsiLangParser.ExprText1Context ctx) { }
+	@Override public void exitExpr(IsiLangParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExprText2(IsiLangParser.ExprText2Context ctx) { }
+	@Override public void enterExprText(IsiLangParser.ExprTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExprText2(IsiLangParser.ExprText2Context ctx) { }
+	@Override public void exitExprText(IsiLangParser.ExprTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExprLogic(IsiLangParser.ExprLogicContext ctx) { }
+	@Override public void enterExprText1(IsiLangParser.ExprText1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExprLogic(IsiLangParser.ExprLogicContext ctx) { }
+	@Override public void exitExprText1(IsiLangParser.ExprText1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExprLogic1(IsiLangParser.ExprLogic1Context ctx) { }
+	@Override public void enterIdText(IsiLangParser.IdTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExprLogic1(IsiLangParser.ExprLogic1Context ctx) { }
+	@Override public void exitIdText(IsiLangParser.IdTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExprLogic2(IsiLangParser.ExprLogic2Context ctx) { }
+	@Override public void enterStringTypeCast(IsiLangParser.StringTypeCastContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExprLogic2(IsiLangParser.ExprLogic2Context ctx) { }
+	@Override public void exitStringTypeCast(IsiLangParser.StringTypeCastContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExprAritm(IsiLangParser.ExprAritmContext ctx) { }
+	@Override public void enterStringLiteral(IsiLangParser.StringLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExprAritm(IsiLangParser.ExprAritmContext ctx) { }
+	@Override public void exitStringLiteral(IsiLangParser.StringLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExprAritm2(IsiLangParser.ExprAritm2Context ctx) { }
+	@Override public void enterExprText2(IsiLangParser.ExprText2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExprAritm2(IsiLangParser.ExprAritm2Context ctx) { }
+	@Override public void exitExprText2(IsiLangParser.ExprText2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterExprAritm3(IsiLangParser.ExprAritm3Context ctx) { }
+	@Override public void enterExprLogic(IsiLangParser.ExprLogicContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitExprAritm3(IsiLangParser.ExprAritm3Context ctx) { }
+	@Override public void exitExprLogic(IsiLangParser.ExprLogicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprLogic1(IsiLangParser.ExprLogic1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprLogic1(IsiLangParser.ExprLogic1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAritmRelation(IsiLangParser.AritmRelationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAritmRelation(IsiLangParser.AritmRelationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLog_negation(IsiLangParser.Log_negationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLog_negation(IsiLangParser.Log_negationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParent_logic(IsiLangParser.Parent_logicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParent_logic(IsiLangParser.Parent_logicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBool_literal(IsiLangParser.Bool_literalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBool_literal(IsiLangParser.Bool_literalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdLogic(IsiLangParser.IdLogicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdLogic(IsiLangParser.IdLogicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprLogic2(IsiLangParser.ExprLogic2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprLogic2(IsiLangParser.ExprLogic2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprAritm(IsiLangParser.ExprAritmContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprAritm(IsiLangParser.ExprAritmContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprAritm2(IsiLangParser.ExprAritm2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprAritm2(IsiLangParser.ExprAritm2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprAritm3(IsiLangParser.ExprAritm3Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprAritm3(IsiLangParser.ExprAritm3Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumLit(IsiLangParser.NumLitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumLit(IsiLangParser.NumLitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdNum(IsiLangParser.IdNumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdNum(IsiLangParser.IdNumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumParen(IsiLangParser.NumParenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumParen(IsiLangParser.NumParenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumCast(IsiLangParser.NumCastContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumCast(IsiLangParser.NumCastContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void enterEveryRule(ParserRuleContext ctx) { }
+	@Override public void enterEveryRule(ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void exitEveryRule(ParserRuleContext ctx) { }
+	@Override public void exitEveryRule(ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void visitTerminal(TerminalNode node) { }
+	@Override public void visitTerminal(TerminalNode node) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	public void visitErrorNode(ErrorNode node) { }
+	@Override public void visitErrorNode(ErrorNode node) { }
 }
