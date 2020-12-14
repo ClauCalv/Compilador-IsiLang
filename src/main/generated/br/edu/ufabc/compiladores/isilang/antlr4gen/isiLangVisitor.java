@@ -53,11 +53,23 @@ public interface isiLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCmdIf(isiLangParser.CmdIfContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link isiLangParser#cmdBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCmdBlock(isiLangParser.CmdBlockContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link isiLangParser#cmdExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCmdExpr(isiLangParser.CmdExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link isiLangParser#cmdWhile}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCmdWhile(isiLangParser.CmdWhileContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link isiLangParser#expr}.
 	 * @param ctx the parse tree
@@ -65,15 +77,57 @@ public interface isiLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(isiLangParser.ExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link isiLangParser#termo}.
+	 * Visit a parse tree produced by {@link isiLangParser#exprText}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTermo(isiLangParser.TermoContext ctx);
+	T visitExprText(isiLangParser.ExprTextContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link isiLangParser#fator}.
+	 * Visit a parse tree produced by {@link isiLangParser#exprText1}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFator(isiLangParser.FatorContext ctx);
+	T visitExprText1(isiLangParser.ExprText1Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link isiLangParser#exprText2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprText2(isiLangParser.ExprText2Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link isiLangParser#exprLogic}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprLogic(isiLangParser.ExprLogicContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link isiLangParser#exprLogic1}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprLogic1(isiLangParser.ExprLogic1Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link isiLangParser#exprLogic2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprLogic2(isiLangParser.ExprLogic2Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link isiLangParser#exprAritm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprAritm(isiLangParser.ExprAritmContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link isiLangParser#exprAritm2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprAritm2(isiLangParser.ExprAritm2Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link isiLangParser#exprAritm3}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprAritm3(isiLangParser.ExprAritm3Context ctx);
 }

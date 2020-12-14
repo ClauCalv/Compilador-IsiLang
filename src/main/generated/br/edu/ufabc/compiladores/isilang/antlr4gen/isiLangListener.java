@@ -78,6 +78,16 @@ public interface isiLangListener extends ParseTreeListener {
 	 */
 	void exitCmdIf(isiLangParser.CmdIfContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link isiLangParser#cmdBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmdBlock(isiLangParser.CmdBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link isiLangParser#cmdBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmdBlock(isiLangParser.CmdBlockContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link isiLangParser#cmdExpr}.
 	 * @param ctx the parse tree
 	 */
@@ -87,6 +97,16 @@ public interface isiLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCmdExpr(isiLangParser.CmdExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link isiLangParser#cmdWhile}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmdWhile(isiLangParser.CmdWhileContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link isiLangParser#cmdWhile}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmdWhile(isiLangParser.CmdWhileContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link isiLangParser#expr}.
 	 * @param ctx the parse tree
@@ -98,23 +118,93 @@ public interface isiLangListener extends ParseTreeListener {
 	 */
 	void exitExpr(isiLangParser.ExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link isiLangParser#termo}.
+	 * Enter a parse tree produced by {@link isiLangParser#exprText}.
 	 * @param ctx the parse tree
 	 */
-	void enterTermo(isiLangParser.TermoContext ctx);
+	void enterExprText(isiLangParser.ExprTextContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link isiLangParser#termo}.
+	 * Exit a parse tree produced by {@link isiLangParser#exprText}.
 	 * @param ctx the parse tree
 	 */
-	void exitTermo(isiLangParser.TermoContext ctx);
+	void exitExprText(isiLangParser.ExprTextContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link isiLangParser#fator}.
+	 * Enter a parse tree produced by {@link isiLangParser#exprText1}.
 	 * @param ctx the parse tree
 	 */
-	void enterFator(isiLangParser.FatorContext ctx);
+	void enterExprText1(isiLangParser.ExprText1Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link isiLangParser#fator}.
+	 * Exit a parse tree produced by {@link isiLangParser#exprText1}.
 	 * @param ctx the parse tree
 	 */
-	void exitFator(isiLangParser.FatorContext ctx);
+	void exitExprText1(isiLangParser.ExprText1Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link isiLangParser#exprText2}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprText2(isiLangParser.ExprText2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link isiLangParser#exprText2}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprText2(isiLangParser.ExprText2Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link isiLangParser#exprLogic}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprLogic(isiLangParser.ExprLogicContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link isiLangParser#exprLogic}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprLogic(isiLangParser.ExprLogicContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link isiLangParser#exprLogic1}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprLogic1(isiLangParser.ExprLogic1Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link isiLangParser#exprLogic1}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprLogic1(isiLangParser.ExprLogic1Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link isiLangParser#exprLogic2}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprLogic2(isiLangParser.ExprLogic2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link isiLangParser#exprLogic2}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprLogic2(isiLangParser.ExprLogic2Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link isiLangParser#exprAritm}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprAritm(isiLangParser.ExprAritmContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link isiLangParser#exprAritm}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprAritm(isiLangParser.ExprAritmContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link isiLangParser#exprAritm2}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprAritm2(isiLangParser.ExprAritm2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link isiLangParser#exprAritm2}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprAritm2(isiLangParser.ExprAritm2Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link isiLangParser#exprAritm3}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprAritm3(isiLangParser.ExprAritm3Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link isiLangParser#exprAritm3}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprAritm3(isiLangParser.ExprAritm3Context ctx);
 }

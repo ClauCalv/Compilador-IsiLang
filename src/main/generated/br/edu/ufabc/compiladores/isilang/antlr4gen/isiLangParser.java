@@ -17,34 +17,41 @@ public class isiLangParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
-		T__17=18, T__18=19, Op_rel=20, Texto=21, Num=22, Id=23;
+		ATTR=1, ARIT_H=2, ARIT_L=3, REL_OP=4, LOG_OP=5, NOT_OP=6, CONCAT_OP=7, 
+		CMD_TEXT=8, BEGIN=9, END=10, DECL=11, CMD_IF=12, CMD_THEN=13, CMD_ELSE=14, 
+		CMD_WHILE=15, CMD_DO=16, CMD_RD=17, CMD_WT=18, ID=19, TEXT_LITERAL=20, 
+		LOGIC_LITERAL=21, NUMERIC_LITERAL=22, AP=23, FP=24, AC=25, FC=26, END_CMD=27, 
+		SEP=28, WP=29;
 	public static final int
 		RULE_prog = 0, RULE_declara = 1, RULE_bloco = 2, RULE_cmd = 3, RULE_cmdLeitura = 4, 
-		RULE_cmdEscrita = 5, RULE_cmdIf = 6, RULE_cmdExpr = 7, RULE_expr = 8, 
-		RULE_termo = 9, RULE_fator = 10;
+		RULE_cmdEscrita = 5, RULE_cmdIf = 6, RULE_cmdBlock = 7, RULE_cmdExpr = 8, 
+		RULE_cmdWhile = 9, RULE_expr = 10, RULE_exprText = 11, RULE_exprText1 = 12, 
+		RULE_exprText2 = 13, RULE_exprLogic = 14, RULE_exprLogic1 = 15, RULE_exprLogic2 = 16, 
+		RULE_exprAritm = 17, RULE_exprAritm2 = 18, RULE_exprAritm3 = 19;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"prog", "declara", "bloco", "cmd", "cmdLeitura", "cmdEscrita", "cmdIf", 
-			"cmdExpr", "expr", "termo", "fator"
+			"cmdBlock", "cmdExpr", "cmdWhile", "expr", "exprText", "exprText1", "exprText2", 
+			"exprLogic", "exprLogic1", "exprLogic2", "exprAritm", "exprAritm2", "exprAritm3"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'programa'", "'fimprog'", "'.'", "'declare'", "','", "'leia'", 
-			"'('", "')'", "'escreva'", "'se'", "'entao'", "'{'", "'}'", "'senao'", 
-			"':='", "'+'", "'\u2013'", "'*'", "'/'"
+			null, "':='", null, null, null, null, "'!'", "'++'", "'texto'", "'programa'", 
+			"'fimprog'", "'declare'", "'se'", "'entao'", "'senao'", "'enquanto'", 
+			"'faca'", "'leia'", "'escreva'", null, null, null, null, "'('", "')'", 
+			"'{'", "'}'", "'.'", "','"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, "Op_rel", "Texto", "Num", 
-			"Id"
+			null, "ATTR", "ARIT_H", "ARIT_L", "REL_OP", "LOG_OP", "NOT_OP", "CONCAT_OP", 
+			"CMD_TEXT", "BEGIN", "END", "DECL", "CMD_IF", "CMD_THEN", "CMD_ELSE", 
+			"CMD_WHILE", "CMD_DO", "CMD_RD", "CMD_WT", "ID", "TEXT_LITERAL", "LOGIC_LITERAL", 
+			"NUMERIC_LITERAL", "AP", "FP", "AC", "FC", "END_CMD", "SEP", "WP"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -99,12 +106,15 @@ public class isiLangParser extends Parser {
 	}
 
 	public static class ProgContext extends ParserRuleContext {
+		public TerminalNode BEGIN() { return getToken(isiLangParser.BEGIN, 0); }
 		public DeclaraContext declara() {
 			return getRuleContext(DeclaraContext.class,0);
 		}
 		public BlocoContext bloco() {
 			return getRuleContext(BlocoContext.class,0);
 		}
+		public TerminalNode END() { return getToken(isiLangParser.END, 0); }
+		public TerminalNode END_CMD() { return getToken(isiLangParser.END_CMD, 0); }
 		public ProgContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -130,16 +140,16 @@ public class isiLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(22);
-			match(T__0);
-			setState(23);
+			setState(40);
+			match(BEGIN);
+			setState(41);
 			declara();
-			setState(24);
+			setState(42);
 			bloco();
-			setState(25);
-			match(T__1);
-			setState(26);
-			match(T__2);
+			setState(43);
+			match(END);
+			setState(44);
+			match(END_CMD);
 			}
 		}
 		catch (RecognitionException re) {
@@ -154,9 +164,15 @@ public class isiLangParser extends Parser {
 	}
 
 	public static class DeclaraContext extends ParserRuleContext {
-		public List<TerminalNode> Id() { return getTokens(isiLangParser.Id); }
-		public TerminalNode Id(int i) {
-			return getToken(isiLangParser.Id, i);
+		public TerminalNode DECL() { return getToken(isiLangParser.DECL, 0); }
+		public List<TerminalNode> ID() { return getTokens(isiLangParser.ID); }
+		public TerminalNode ID(int i) {
+			return getToken(isiLangParser.ID, i);
+		}
+		public TerminalNode END_CMD() { return getToken(isiLangParser.END_CMD, 0); }
+		public List<TerminalNode> SEP() { return getTokens(isiLangParser.SEP); }
+		public TerminalNode SEP(int i) {
+			return getToken(isiLangParser.SEP, i);
 		}
 		public DeclaraContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -184,28 +200,28 @@ public class isiLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(28);
-			match(T__3);
-			setState(29);
-			match(Id);
-			setState(34);
+			setState(46);
+			match(DECL);
+			setState(47);
+			match(ID);
+			setState(52);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__4) {
+			while (_la==SEP) {
 				{
 				{
-				setState(30);
-				match(T__4);
-				setState(31);
-				match(Id);
+				setState(48);
+				match(SEP);
+				setState(49);
+				match(ID);
 				}
 				}
-				setState(36);
+				setState(54);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(37);
-			match(T__2);
+			setState(55);
+			match(END_CMD);
 			}
 		}
 		catch (RecognitionException re) {
@@ -225,6 +241,10 @@ public class isiLangParser extends Parser {
 		}
 		public CmdContext cmd(int i) {
 			return getRuleContext(CmdContext.class,i);
+		}
+		public List<TerminalNode> END_CMD() { return getTokens(isiLangParser.END_CMD); }
+		public TerminalNode END_CMD(int i) {
+			return getToken(isiLangParser.END_CMD, i);
 		}
 		public BlocoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -252,22 +272,22 @@ public class isiLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(42); 
+			setState(60); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(39);
+				setState(57);
 				cmd();
-				setState(40);
-				match(T__2);
+				setState(58);
+				match(END_CMD);
 				}
 				}
-				setState(44); 
+				setState(62); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__8) | (1L << T__9) | (1L << Id))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << CMD_IF) | (1L << CMD_RD) | (1L << CMD_WT) | (1L << ID))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -317,34 +337,34 @@ public class isiLangParser extends Parser {
 		CmdContext _localctx = new CmdContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_cmd);
 		try {
-			setState(50);
+			setState(68);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__5:
+			case CMD_RD:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(46);
+				setState(64);
 				cmdLeitura();
 				}
 				break;
-			case T__8:
+			case CMD_WT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(47);
+				setState(65);
 				cmdEscrita();
 				}
 				break;
-			case Id:
+			case ID:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(48);
+				setState(66);
 				cmdExpr();
 				}
 				break;
-			case T__9:
+			case CMD_IF:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(49);
+				setState(67);
 				cmdIf();
 				}
 				break;
@@ -364,7 +384,10 @@ public class isiLangParser extends Parser {
 	}
 
 	public static class CmdLeituraContext extends ParserRuleContext {
-		public TerminalNode Id() { return getToken(isiLangParser.Id, 0); }
+		public TerminalNode CMD_RD() { return getToken(isiLangParser.CMD_RD, 0); }
+		public TerminalNode AP() { return getToken(isiLangParser.AP, 0); }
+		public TerminalNode ID() { return getToken(isiLangParser.ID, 0); }
+		public TerminalNode FP() { return getToken(isiLangParser.FP, 0); }
 		public CmdLeituraContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -390,14 +413,14 @@ public class isiLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(52);
-			match(T__5);
-			setState(53);
-			match(T__6);
-			setState(54);
-			match(Id);
-			setState(55);
-			match(T__7);
+			setState(70);
+			match(CMD_RD);
+			setState(71);
+			match(AP);
+			setState(72);
+			match(ID);
+			setState(73);
+			match(FP);
 			}
 		}
 		catch (RecognitionException re) {
@@ -412,8 +435,12 @@ public class isiLangParser extends Parser {
 	}
 
 	public static class CmdEscritaContext extends ParserRuleContext {
-		public TerminalNode Texto() { return getToken(isiLangParser.Texto, 0); }
-		public TerminalNode Id() { return getToken(isiLangParser.Id, 0); }
+		public TerminalNode CMD_WT() { return getToken(isiLangParser.CMD_WT, 0); }
+		public TerminalNode AP() { return getToken(isiLangParser.AP, 0); }
+		public TerminalNode FP() { return getToken(isiLangParser.FP, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
 		public CmdEscritaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -436,22 +463,19 @@ public class isiLangParser extends Parser {
 	public final CmdEscritaContext cmdEscrita() throws RecognitionException {
 		CmdEscritaContext _localctx = new CmdEscritaContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_cmdEscrita);
-		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(57);
-			match(T__8);
-			setState(58);
-			_la = _input.LA(1);
-			if ( !(_la==Texto || _la==Id) ) {
-			_errHandler.recoverInline(this);
+			setState(75);
+			match(CMD_WT);
+			setState(76);
+			match(AP);
+			{
+			setState(77);
+			expr();
 			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
+			setState(78);
+			match(FP);
 			}
 		}
 		catch (RecognitionException re) {
@@ -466,19 +490,20 @@ public class isiLangParser extends Parser {
 	}
 
 	public static class CmdIfContext extends ParserRuleContext {
-		public List<ExprContext> expr() {
-			return getRuleContexts(ExprContext.class);
+		public TerminalNode CMD_IF() { return getToken(isiLangParser.CMD_IF, 0); }
+		public TerminalNode AP() { return getToken(isiLangParser.AP, 0); }
+		public ExprLogicContext exprLogic() {
+			return getRuleContext(ExprLogicContext.class,0);
 		}
-		public ExprContext expr(int i) {
-			return getRuleContext(ExprContext.class,i);
+		public TerminalNode FP() { return getToken(isiLangParser.FP, 0); }
+		public TerminalNode CMD_THEN() { return getToken(isiLangParser.CMD_THEN, 0); }
+		public List<CmdBlockContext> cmdBlock() {
+			return getRuleContexts(CmdBlockContext.class);
 		}
-		public TerminalNode Op_rel() { return getToken(isiLangParser.Op_rel, 0); }
-		public List<CmdContext> cmd() {
-			return getRuleContexts(CmdContext.class);
+		public CmdBlockContext cmdBlock(int i) {
+			return getRuleContext(CmdBlockContext.class,i);
 		}
-		public CmdContext cmd(int i) {
-			return getRuleContext(CmdContext.class,i);
-		}
+		public TerminalNode CMD_ELSE() { return getToken(isiLangParser.CMD_ELSE, 0); }
 		public CmdIfContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -501,70 +526,104 @@ public class isiLangParser extends Parser {
 	public final CmdIfContext cmdIf() throws RecognitionException {
 		CmdIfContext _localctx = new CmdIfContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_cmdIf);
-		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60);
-			match(T__9);
-			setState(61);
-			match(T__6);
-			setState(62);
-			expr(0);
-			setState(63);
-			match(Op_rel);
-			setState(64);
-			expr(0);
-			setState(65);
-			match(T__7);
-			setState(66);
-			match(T__10);
-			setState(67);
-			match(T__11);
-			setState(69); 
+			setState(80);
+			match(CMD_IF);
+			setState(81);
+			match(AP);
+			setState(82);
+			exprLogic();
+			setState(83);
+			match(FP);
+			setState(84);
+			match(CMD_THEN);
+			setState(85);
+			cmdBlock();
+			setState(88);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			do {
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+			case 1:
 				{
+				setState(86);
+				match(CMD_ELSE);
+				setState(87);
+				cmdBlock();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class CmdBlockContext extends ParserRuleContext {
+		public TerminalNode AC() { return getToken(isiLangParser.AC, 0); }
+		public BlocoContext bloco() {
+			return getRuleContext(BlocoContext.class,0);
+		}
+		public TerminalNode FC() { return getToken(isiLangParser.FC, 0); }
+		public CmdContext cmd() {
+			return getRuleContext(CmdContext.class,0);
+		}
+		public CmdBlockContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_cmdBlock; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterCmdBlock(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitCmdBlock(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitCmdBlock(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final CmdBlockContext cmdBlock() throws RecognitionException {
+		CmdBlockContext _localctx = new CmdBlockContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_cmdBlock);
+		try {
+			setState(95);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case AC:
+				enterOuterAlt(_localctx, 1);
 				{
-				setState(68);
+				setState(90);
+				match(AC);
+				setState(91);
+				bloco();
+				setState(92);
+				match(FC);
+				}
+				break;
+			case CMD_IF:
+			case CMD_RD:
+			case CMD_WT:
+			case ID:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(94);
 				cmd();
 				}
-				}
-				setState(71); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__8) | (1L << T__9) | (1L << Id))) != 0) );
-			setState(73);
-			match(T__12);
-			setState(83);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==T__13) {
-				{
-				setState(74);
-				match(T__13);
-				setState(75);
-				match(T__11);
-				setState(77); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(76);
-					cmd();
-					}
-					}
-					setState(79); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__8) | (1L << T__9) | (1L << Id))) != 0) );
-				setState(81);
-				match(T__12);
-				}
-			}
-
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -579,7 +638,8 @@ public class isiLangParser extends Parser {
 	}
 
 	public static class CmdExprContext extends ParserRuleContext {
-		public TerminalNode Id() { return getToken(isiLangParser.Id, 0); }
+		public TerminalNode ID() { return getToken(isiLangParser.ID, 0); }
+		public TerminalNode ATTR() { return getToken(isiLangParser.ATTR, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
@@ -604,16 +664,83 @@ public class isiLangParser extends Parser {
 
 	public final CmdExprContext cmdExpr() throws RecognitionException {
 		CmdExprContext _localctx = new CmdExprContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_cmdExpr);
+		enterRule(_localctx, 16, RULE_cmdExpr);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(85);
-			match(Id);
-			setState(86);
-			match(T__14);
-			setState(87);
-			expr(0);
+			setState(97);
+			match(ID);
+			setState(98);
+			match(ATTR);
+			setState(99);
+			expr();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class CmdWhileContext extends ParserRuleContext {
+		public TerminalNode CMD_WHILE() { return getToken(isiLangParser.CMD_WHILE, 0); }
+		public TerminalNode AP() { return getToken(isiLangParser.AP, 0); }
+		public ExprLogicContext exprLogic() {
+			return getRuleContext(ExprLogicContext.class,0);
+		}
+		public TerminalNode FP() { return getToken(isiLangParser.FP, 0); }
+		public TerminalNode CMD_DO() { return getToken(isiLangParser.CMD_DO, 0); }
+		public TerminalNode AC() { return getToken(isiLangParser.AC, 0); }
+		public BlocoContext bloco() {
+			return getRuleContext(BlocoContext.class,0);
+		}
+		public TerminalNode FC() { return getToken(isiLangParser.FC, 0); }
+		public CmdWhileContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_cmdWhile; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterCmdWhile(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitCmdWhile(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitCmdWhile(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final CmdWhileContext cmdWhile() throws RecognitionException {
+		CmdWhileContext _localctx = new CmdWhileContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_cmdWhile);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(101);
+			match(CMD_WHILE);
+			setState(102);
+			match(AP);
+			setState(103);
+			exprLogic();
+			setState(104);
+			match(FP);
+			setState(105);
+			match(CMD_DO);
+			setState(106);
+			match(AC);
+			setState(107);
+			bloco();
+			setState(108);
+			match(FC);
 			}
 		}
 		catch (RecognitionException re) {
@@ -628,11 +755,14 @@ public class isiLangParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public TermoContext termo() {
-			return getRuleContext(TermoContext.class,0);
+		public ExprTextContext exprText() {
+			return getRuleContext(ExprTextContext.class,0);
 		}
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
+		public ExprLogicContext exprLogic() {
+			return getRuleContext(ExprLogicContext.class,0);
+		}
+		public ExprAritmContext exprAritm() {
+			return getRuleContext(ExprAritmContext.class,0);
 		}
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -654,67 +784,33 @@ public class isiLangParser extends Parser {
 	}
 
 	public final ExprContext expr() throws RecognitionException {
-		return expr(0);
-	}
-
-	private ExprContext expr(int _p) throws RecognitionException {
-		ParserRuleContext _parentctx = _ctx;
-		int _parentState = getState();
-		ExprContext _localctx = new ExprContext(_ctx, _parentState);
-		ExprContext _prevctx = _localctx;
-		int _startState = 16;
-		enterRecursionRule(_localctx, 16, RULE_expr, _p);
+		ExprContext _localctx = new ExprContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_expr);
 		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			{
-			setState(90);
-			termo(0);
-			}
-			_ctx.stop = _input.LT(-1);
-			setState(100);
+			setState(113);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					if ( _parseListeners!=null ) triggerExitRuleEvent();
-					_prevctx = _localctx;
-					{
-					setState(98);
-					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
-					case 1:
-						{
-						_localctx = new ExprContext(_parentctx, _parentState);
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(92);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(93);
-						match(T__15);
-						setState(94);
-						termo(0);
-						}
-						break;
-					case 2:
-						{
-						_localctx = new ExprContext(_parentctx, _parentState);
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(95);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(96);
-						match(T__16);
-						setState(97);
-						termo(0);
-						}
-						break;
-					}
-					} 
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(110);
+				exprText();
 				}
-				setState(102);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
-			}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(111);
+				exprLogic();
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(112);
+				exprAritm();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -723,99 +819,56 @@ public class isiLangParser extends Parser {
 			_errHandler.recover(this, re);
 		}
 		finally {
-			unrollRecursionContexts(_parentctx);
+			exitRule();
 		}
 		return _localctx;
 	}
 
-	public static class TermoContext extends ParserRuleContext {
-		public FatorContext fator() {
-			return getRuleContext(FatorContext.class,0);
+	public static class ExprTextContext extends ParserRuleContext {
+		public ExprText1Context exprText1() {
+			return getRuleContext(ExprText1Context.class,0);
 		}
-		public TermoContext termo() {
-			return getRuleContext(TermoContext.class,0);
+		public ExprText2Context exprText2() {
+			return getRuleContext(ExprText2Context.class,0);
 		}
-		public TermoContext(ParserRuleContext parent, int invokingState) {
+		public ExprTextContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_termo; }
+		@Override public int getRuleIndex() { return RULE_exprText; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterTermo(this);
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterExprText(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitTermo(this);
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitExprText(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitTermo(this);
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitExprText(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final TermoContext termo() throws RecognitionException {
-		return termo(0);
-	}
-
-	private TermoContext termo(int _p) throws RecognitionException {
-		ParserRuleContext _parentctx = _ctx;
-		int _parentState = getState();
-		TermoContext _localctx = new TermoContext(_ctx, _parentState);
-		TermoContext _prevctx = _localctx;
-		int _startState = 18;
-		enterRecursionRule(_localctx, 18, RULE_termo, _p);
+	public final ExprTextContext exprText() throws RecognitionException {
+		ExprTextContext _localctx = new ExprTextContext(_ctx, getState());
+		enterRule(_localctx, 22, RULE_exprText);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			{
-			setState(104);
-			fator();
-			}
-			_ctx.stop = _input.LT(-1);
-			setState(114);
+			setState(115);
+			exprText1();
+			setState(117);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					if ( _parseListeners!=null ) triggerExitRuleEvent();
-					_prevctx = _localctx;
-					{
-					setState(112);
-					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
-					case 1:
-						{
-						_localctx = new TermoContext(_parentctx, _parentState);
-						pushNewRecursionContext(_localctx, _startState, RULE_termo);
-						setState(106);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(107);
-						match(T__17);
-						setState(108);
-						fator();
-						}
-						break;
-					case 2:
-						{
-						_localctx = new TermoContext(_parentctx, _parentState);
-						pushNewRecursionContext(_localctx, _startState, RULE_termo);
-						setState(109);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(110);
-						match(T__18);
-						setState(111);
-						fator();
-						}
-						break;
-					}
-					} 
-				}
+			_la = _input.LA(1);
+			if (_la==CONCAT_OP) {
+				{
 				setState(116);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
+				exprText2();
+				}
 			}
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -824,66 +877,63 @@ public class isiLangParser extends Parser {
 			_errHandler.recover(this, re);
 		}
 		finally {
-			unrollRecursionContexts(_parentctx);
+			exitRule();
 		}
 		return _localctx;
 	}
 
-	public static class FatorContext extends ParserRuleContext {
-		public TerminalNode Num() { return getToken(isiLangParser.Num, 0); }
-		public TerminalNode Id() { return getToken(isiLangParser.Id, 0); }
+	public static class ExprText1Context extends ParserRuleContext {
+		public TerminalNode CMD_TEXT() { return getToken(isiLangParser.CMD_TEXT, 0); }
+		public TerminalNode AP() { return getToken(isiLangParser.AP, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
-		public FatorContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode FP() { return getToken(isiLangParser.FP, 0); }
+		public TerminalNode TEXT_LITERAL() { return getToken(isiLangParser.TEXT_LITERAL, 0); }
+		public ExprText1Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_fator; }
+		@Override public int getRuleIndex() { return RULE_exprText1; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterFator(this);
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterExprText1(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitFator(this);
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitExprText1(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitFator(this);
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitExprText1(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final FatorContext fator() throws RecognitionException {
-		FatorContext _localctx = new FatorContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_fator);
+	public final ExprText1Context exprText1() throws RecognitionException {
+		ExprText1Context _localctx = new ExprText1Context(_ctx, getState());
+		enterRule(_localctx, 24, RULE_exprText1);
 		try {
-			setState(123);
+			setState(125);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case Num:
+			case CMD_TEXT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(117);
-				match(Num);
+				setState(119);
+				match(CMD_TEXT);
+				setState(120);
+				match(AP);
+				setState(121);
+				expr();
+				setState(122);
+				match(FP);
 				}
 				break;
-			case Id:
+			case TEXT_LITERAL:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(118);
-				match(Id);
-				}
-				break;
-			case T__6:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(119);
-				match(T__6);
-				setState(120);
-				expr(0);
-				setState(121);
-				match(T__7);
+				setState(124);
+				match(TEXT_LITERAL);
 				}
 				break;
 			default:
@@ -901,66 +951,518 @@ public class isiLangParser extends Parser {
 		return _localctx;
 	}
 
-	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
-		switch (ruleIndex) {
-		case 8:
-			return expr_sempred((ExprContext)_localctx, predIndex);
-		case 9:
-			return termo_sempred((TermoContext)_localctx, predIndex);
+	public static class ExprText2Context extends ParserRuleContext {
+		public TerminalNode CONCAT_OP() { return getToken(isiLangParser.CONCAT_OP, 0); }
+		public ExprTextContext exprText() {
+			return getRuleContext(ExprTextContext.class,0);
 		}
-		return true;
+		public ExprText2Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_exprText2; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterExprText2(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitExprText2(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitExprText2(this);
+			else return visitor.visitChildren(this);
+		}
 	}
-	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
-		switch (predIndex) {
-		case 0:
-			return precpred(_ctx, 3);
-		case 1:
-			return precpred(_ctx, 2);
+
+	public final ExprText2Context exprText2() throws RecognitionException {
+		ExprText2Context _localctx = new ExprText2Context(_ctx, getState());
+		enterRule(_localctx, 26, RULE_exprText2);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(127);
+			match(CONCAT_OP);
+			setState(128);
+			exprText();
+			}
 		}
-		return true;
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
 	}
-	private boolean termo_sempred(TermoContext _localctx, int predIndex) {
-		switch (predIndex) {
-		case 2:
-			return precpred(_ctx, 3);
-		case 3:
-			return precpred(_ctx, 2);
+
+	public static class ExprLogicContext extends ParserRuleContext {
+		public ExprLogic1Context exprLogic1() {
+			return getRuleContext(ExprLogic1Context.class,0);
 		}
-		return true;
+		public ExprLogic2Context exprLogic2() {
+			return getRuleContext(ExprLogic2Context.class,0);
+		}
+		public ExprLogicContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_exprLogic; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterExprLogic(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitExprLogic(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitExprLogic(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ExprLogicContext exprLogic() throws RecognitionException {
+		ExprLogicContext _localctx = new ExprLogicContext(_ctx, getState());
+		enterRule(_localctx, 28, RULE_exprLogic);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(130);
+			exprLogic1();
+			setState(132);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			case 1:
+				{
+				setState(131);
+				exprLogic2();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ExprLogic1Context extends ParserRuleContext {
+		public List<ExprAritmContext> exprAritm() {
+			return getRuleContexts(ExprAritmContext.class);
+		}
+		public ExprAritmContext exprAritm(int i) {
+			return getRuleContext(ExprAritmContext.class,i);
+		}
+		public TerminalNode REL_OP() { return getToken(isiLangParser.REL_OP, 0); }
+		public TerminalNode NOT_OP() { return getToken(isiLangParser.NOT_OP, 0); }
+		public ExprLogicContext exprLogic() {
+			return getRuleContext(ExprLogicContext.class,0);
+		}
+		public TerminalNode AP() { return getToken(isiLangParser.AP, 0); }
+		public TerminalNode FP() { return getToken(isiLangParser.FP, 0); }
+		public TerminalNode LOGIC_LITERAL() { return getToken(isiLangParser.LOGIC_LITERAL, 0); }
+		public TerminalNode ID() { return getToken(isiLangParser.ID, 0); }
+		public ExprLogic1Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_exprLogic1; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterExprLogic1(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitExprLogic1(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitExprLogic1(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ExprLogic1Context exprLogic1() throws RecognitionException {
+		ExprLogic1Context _localctx = new ExprLogic1Context(_ctx, getState());
+		enterRule(_localctx, 30, RULE_exprLogic1);
+		try {
+			setState(146);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(134);
+				exprAritm();
+				setState(135);
+				match(REL_OP);
+				setState(136);
+				exprAritm();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(138);
+				match(NOT_OP);
+				setState(139);
+				exprLogic();
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(140);
+				match(AP);
+				setState(141);
+				exprLogic();
+				setState(142);
+				match(FP);
+				}
+				break;
+			case 4:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(144);
+				match(LOGIC_LITERAL);
+				}
+				break;
+			case 5:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(145);
+				match(ID);
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ExprLogic2Context extends ParserRuleContext {
+		public TerminalNode LOG_OP() { return getToken(isiLangParser.LOG_OP, 0); }
+		public ExprLogicContext exprLogic() {
+			return getRuleContext(ExprLogicContext.class,0);
+		}
+		public ExprLogic2Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_exprLogic2; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterExprLogic2(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitExprLogic2(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitExprLogic2(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ExprLogic2Context exprLogic2() throws RecognitionException {
+		ExprLogic2Context _localctx = new ExprLogic2Context(_ctx, getState());
+		enterRule(_localctx, 32, RULE_exprLogic2);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(148);
+			match(LOG_OP);
+			setState(149);
+			exprLogic();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ExprAritmContext extends ParserRuleContext {
+		public List<ExprAritm2Context> exprAritm2() {
+			return getRuleContexts(ExprAritm2Context.class);
+		}
+		public ExprAritm2Context exprAritm2(int i) {
+			return getRuleContext(ExprAritm2Context.class,i);
+		}
+		public List<TerminalNode> ARIT_L() { return getTokens(isiLangParser.ARIT_L); }
+		public TerminalNode ARIT_L(int i) {
+			return getToken(isiLangParser.ARIT_L, i);
+		}
+		public ExprAritmContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_exprAritm; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterExprAritm(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitExprAritm(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitExprAritm(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ExprAritmContext exprAritm() throws RecognitionException {
+		ExprAritmContext _localctx = new ExprAritmContext(_ctx, getState());
+		enterRule(_localctx, 34, RULE_exprAritm);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(151);
+			exprAritm2();
+			setState(156);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==ARIT_L) {
+				{
+				{
+				setState(152);
+				match(ARIT_L);
+				setState(153);
+				exprAritm2();
+				}
+				}
+				setState(158);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ExprAritm2Context extends ParserRuleContext {
+		public List<ExprAritm3Context> exprAritm3() {
+			return getRuleContexts(ExprAritm3Context.class);
+		}
+		public ExprAritm3Context exprAritm3(int i) {
+			return getRuleContext(ExprAritm3Context.class,i);
+		}
+		public List<TerminalNode> ARIT_H() { return getTokens(isiLangParser.ARIT_H); }
+		public TerminalNode ARIT_H(int i) {
+			return getToken(isiLangParser.ARIT_H, i);
+		}
+		public ExprAritm2Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_exprAritm2; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterExprAritm2(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitExprAritm2(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitExprAritm2(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ExprAritm2Context exprAritm2() throws RecognitionException {
+		ExprAritm2Context _localctx = new ExprAritm2Context(_ctx, getState());
+		enterRule(_localctx, 36, RULE_exprAritm2);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(159);
+			exprAritm3();
+			setState(164);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==ARIT_H) {
+				{
+				{
+				setState(160);
+				match(ARIT_H);
+				setState(161);
+				exprAritm3();
+				}
+				}
+				setState(166);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ExprAritm3Context extends ParserRuleContext {
+		public TerminalNode NUMERIC_LITERAL() { return getToken(isiLangParser.NUMERIC_LITERAL, 0); }
+		public TerminalNode ID() { return getToken(isiLangParser.ID, 0); }
+		public TerminalNode AP() { return getToken(isiLangParser.AP, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode FP() { return getToken(isiLangParser.FP, 0); }
+		public ExprAritm3Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_exprAritm3; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).enterExprAritm3(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof isiLangListener ) ((isiLangListener)listener).exitExprAritm3(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof isiLangVisitor ) return ((isiLangVisitor<? extends T>)visitor).visitExprAritm3(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ExprAritm3Context exprAritm3() throws RecognitionException {
+		ExprAritm3Context _localctx = new ExprAritm3Context(_ctx, getState());
+		enterRule(_localctx, 38, RULE_exprAritm3);
+		try {
+			setState(173);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case NUMERIC_LITERAL:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(167);
+				match(NUMERIC_LITERAL);
+				}
+				break;
+			case ID:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(168);
+				match(ID);
+				}
+				break;
+			case AP:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(169);
+				match(AP);
+				setState(170);
+				expr();
+				setState(171);
+				match(FP);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31\u0080\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\37\u00b2\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\4\f\t\f\3\2\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\7\3#\n\3\f\3\16"+
-		"\3&\13\3\3\3\3\3\3\4\3\4\3\4\6\4-\n\4\r\4\16\4.\3\5\3\5\3\5\3\5\5\5\65"+
-		"\n\5\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3"+
-		"\b\6\bH\n\b\r\b\16\bI\3\b\3\b\3\b\3\b\6\bP\n\b\r\b\16\bQ\3\b\3\b\5\bV"+
-		"\n\b\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\7\ne\n\n\f\n"+
-		"\16\nh\13\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\7\13s\n\13\f"+
-		"\13\16\13v\13\13\3\f\3\f\3\f\3\f\3\f\3\f\5\f~\n\f\3\f\2\4\22\24\r\2\4"+
-		"\6\b\n\f\16\20\22\24\26\2\3\4\2\27\27\31\31\2\u0082\2\30\3\2\2\2\4\36"+
-		"\3\2\2\2\6,\3\2\2\2\b\64\3\2\2\2\n\66\3\2\2\2\f;\3\2\2\2\16>\3\2\2\2\20"+
-		"W\3\2\2\2\22[\3\2\2\2\24i\3\2\2\2\26}\3\2\2\2\30\31\7\3\2\2\31\32\5\4"+
-		"\3\2\32\33\5\6\4\2\33\34\7\4\2\2\34\35\7\5\2\2\35\3\3\2\2\2\36\37\7\6"+
-		"\2\2\37$\7\31\2\2 !\7\7\2\2!#\7\31\2\2\" \3\2\2\2#&\3\2\2\2$\"\3\2\2\2"+
-		"$%\3\2\2\2%\'\3\2\2\2&$\3\2\2\2\'(\7\5\2\2(\5\3\2\2\2)*\5\b\5\2*+\7\5"+
-		"\2\2+-\3\2\2\2,)\3\2\2\2-.\3\2\2\2.,\3\2\2\2./\3\2\2\2/\7\3\2\2\2\60\65"+
-		"\5\n\6\2\61\65\5\f\7\2\62\65\5\20\t\2\63\65\5\16\b\2\64\60\3\2\2\2\64"+
-		"\61\3\2\2\2\64\62\3\2\2\2\64\63\3\2\2\2\65\t\3\2\2\2\66\67\7\b\2\2\67"+
-		"8\7\t\2\289\7\31\2\29:\7\n\2\2:\13\3\2\2\2;<\7\13\2\2<=\t\2\2\2=\r\3\2"+
-		"\2\2>?\7\f\2\2?@\7\t\2\2@A\5\22\n\2AB\7\26\2\2BC\5\22\n\2CD\7\n\2\2DE"+
-		"\7\r\2\2EG\7\16\2\2FH\5\b\5\2GF\3\2\2\2HI\3\2\2\2IG\3\2\2\2IJ\3\2\2\2"+
-		"JK\3\2\2\2KU\7\17\2\2LM\7\20\2\2MO\7\16\2\2NP\5\b\5\2ON\3\2\2\2PQ\3\2"+
-		"\2\2QO\3\2\2\2QR\3\2\2\2RS\3\2\2\2ST\7\17\2\2TV\3\2\2\2UL\3\2\2\2UV\3"+
-		"\2\2\2V\17\3\2\2\2WX\7\31\2\2XY\7\21\2\2YZ\5\22\n\2Z\21\3\2\2\2[\\\b\n"+
-		"\1\2\\]\5\24\13\2]f\3\2\2\2^_\f\5\2\2_`\7\22\2\2`e\5\24\13\2ab\f\4\2\2"+
-		"bc\7\23\2\2ce\5\24\13\2d^\3\2\2\2da\3\2\2\2eh\3\2\2\2fd\3\2\2\2fg\3\2"+
-		"\2\2g\23\3\2\2\2hf\3\2\2\2ij\b\13\1\2jk\5\26\f\2kt\3\2\2\2lm\f\5\2\2m"+
-		"n\7\24\2\2ns\5\26\f\2op\f\4\2\2pq\7\25\2\2qs\5\26\f\2rl\3\2\2\2ro\3\2"+
-		"\2\2sv\3\2\2\2tr\3\2\2\2tu\3\2\2\2u\25\3\2\2\2vt\3\2\2\2w~\7\30\2\2x~"+
-		"\7\31\2\2yz\7\t\2\2z{\5\22\n\2{|\7\n\2\2|~\3\2\2\2}w\3\2\2\2}x\3\2\2\2"+
-		"}y\3\2\2\2~\27\3\2\2\2\r$.\64IQUdfrt}";
+		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
+		"\4\23\t\23\4\24\t\24\4\25\t\25\3\2\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3"+
+		"\7\3\65\n\3\f\3\16\38\13\3\3\3\3\3\3\4\3\4\3\4\6\4?\n\4\r\4\16\4@\3\5"+
+		"\3\5\3\5\3\5\5\5G\n\5\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\b\3\b"+
+		"\3\b\3\b\3\b\3\b\3\b\3\b\5\b[\n\b\3\t\3\t\3\t\3\t\3\t\5\tb\n\t\3\n\3\n"+
+		"\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f\5\f"+
+		"t\n\f\3\r\3\r\5\rx\n\r\3\16\3\16\3\16\3\16\3\16\3\16\5\16\u0080\n\16\3"+
+		"\17\3\17\3\17\3\20\3\20\5\20\u0087\n\20\3\21\3\21\3\21\3\21\3\21\3\21"+
+		"\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u0095\n\21\3\22\3\22\3\22\3\23\3\23"+
+		"\3\23\7\23\u009d\n\23\f\23\16\23\u00a0\13\23\3\24\3\24\3\24\7\24\u00a5"+
+		"\n\24\f\24\16\24\u00a8\13\24\3\25\3\25\3\25\3\25\3\25\3\25\5\25\u00b0"+
+		"\n\25\3\25\2\2\26\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(\2\2\2\u00b1"+
+		"\2*\3\2\2\2\4\60\3\2\2\2\6>\3\2\2\2\bF\3\2\2\2\nH\3\2\2\2\fM\3\2\2\2\16"+
+		"R\3\2\2\2\20a\3\2\2\2\22c\3\2\2\2\24g\3\2\2\2\26s\3\2\2\2\30u\3\2\2\2"+
+		"\32\177\3\2\2\2\34\u0081\3\2\2\2\36\u0084\3\2\2\2 \u0094\3\2\2\2\"\u0096"+
+		"\3\2\2\2$\u0099\3\2\2\2&\u00a1\3\2\2\2(\u00af\3\2\2\2*+\7\13\2\2+,\5\4"+
+		"\3\2,-\5\6\4\2-.\7\f\2\2./\7\35\2\2/\3\3\2\2\2\60\61\7\r\2\2\61\66\7\25"+
+		"\2\2\62\63\7\36\2\2\63\65\7\25\2\2\64\62\3\2\2\2\658\3\2\2\2\66\64\3\2"+
+		"\2\2\66\67\3\2\2\2\679\3\2\2\28\66\3\2\2\29:\7\35\2\2:\5\3\2\2\2;<\5\b"+
+		"\5\2<=\7\35\2\2=?\3\2\2\2>;\3\2\2\2?@\3\2\2\2@>\3\2\2\2@A\3\2\2\2A\7\3"+
+		"\2\2\2BG\5\n\6\2CG\5\f\7\2DG\5\22\n\2EG\5\16\b\2FB\3\2\2\2FC\3\2\2\2F"+
+		"D\3\2\2\2FE\3\2\2\2G\t\3\2\2\2HI\7\23\2\2IJ\7\31\2\2JK\7\25\2\2KL\7\32"+
+		"\2\2L\13\3\2\2\2MN\7\24\2\2NO\7\31\2\2OP\5\26\f\2PQ\7\32\2\2Q\r\3\2\2"+
+		"\2RS\7\16\2\2ST\7\31\2\2TU\5\36\20\2UV\7\32\2\2VW\7\17\2\2WZ\5\20\t\2"+
+		"XY\7\20\2\2Y[\5\20\t\2ZX\3\2\2\2Z[\3\2\2\2[\17\3\2\2\2\\]\7\33\2\2]^\5"+
+		"\6\4\2^_\7\34\2\2_b\3\2\2\2`b\5\b\5\2a\\\3\2\2\2a`\3\2\2\2b\21\3\2\2\2"+
+		"cd\7\25\2\2de\7\3\2\2ef\5\26\f\2f\23\3\2\2\2gh\7\21\2\2hi\7\31\2\2ij\5"+
+		"\36\20\2jk\7\32\2\2kl\7\22\2\2lm\7\33\2\2mn\5\6\4\2no\7\34\2\2o\25\3\2"+
+		"\2\2pt\5\30\r\2qt\5\36\20\2rt\5$\23\2sp\3\2\2\2sq\3\2\2\2sr\3\2\2\2t\27"+
+		"\3\2\2\2uw\5\32\16\2vx\5\34\17\2wv\3\2\2\2wx\3\2\2\2x\31\3\2\2\2yz\7\n"+
+		"\2\2z{\7\31\2\2{|\5\26\f\2|}\7\32\2\2}\u0080\3\2\2\2~\u0080\7\26\2\2\177"+
+		"y\3\2\2\2\177~\3\2\2\2\u0080\33\3\2\2\2\u0081\u0082\7\t\2\2\u0082\u0083"+
+		"\5\30\r\2\u0083\35\3\2\2\2\u0084\u0086\5 \21\2\u0085\u0087\5\"\22\2\u0086"+
+		"\u0085\3\2\2\2\u0086\u0087\3\2\2\2\u0087\37\3\2\2\2\u0088\u0089\5$\23"+
+		"\2\u0089\u008a\7\6\2\2\u008a\u008b\5$\23\2\u008b\u0095\3\2\2\2\u008c\u008d"+
+		"\7\b\2\2\u008d\u0095\5\36\20\2\u008e\u008f\7\31\2\2\u008f\u0090\5\36\20"+
+		"\2\u0090\u0091\7\32\2\2\u0091\u0095\3\2\2\2\u0092\u0095\7\27\2\2\u0093"+
+		"\u0095\7\25\2\2\u0094\u0088\3\2\2\2\u0094\u008c\3\2\2\2\u0094\u008e\3"+
+		"\2\2\2\u0094\u0092\3\2\2\2\u0094\u0093\3\2\2\2\u0095!\3\2\2\2\u0096\u0097"+
+		"\7\7\2\2\u0097\u0098\5\36\20\2\u0098#\3\2\2\2\u0099\u009e\5&\24\2\u009a"+
+		"\u009b\7\5\2\2\u009b\u009d\5&\24\2\u009c\u009a\3\2\2\2\u009d\u00a0\3\2"+
+		"\2\2\u009e\u009c\3\2\2\2\u009e\u009f\3\2\2\2\u009f%\3\2\2\2\u00a0\u009e"+
+		"\3\2\2\2\u00a1\u00a6\5(\25\2\u00a2\u00a3\7\4\2\2\u00a3\u00a5\5(\25\2\u00a4"+
+		"\u00a2\3\2\2\2\u00a5\u00a8\3\2\2\2\u00a6\u00a4\3\2\2\2\u00a6\u00a7\3\2"+
+		"\2\2\u00a7\'\3\2\2\2\u00a8\u00a6\3\2\2\2\u00a9\u00b0\7\30\2\2\u00aa\u00b0"+
+		"\7\25\2\2\u00ab\u00ac\7\31\2\2\u00ac\u00ad\5\26\f\2\u00ad\u00ae\7\32\2"+
+		"\2\u00ae\u00b0\3\2\2\2\u00af\u00a9\3\2\2\2\u00af\u00aa\3\2\2\2\u00af\u00ab"+
+		"\3\2\2\2\u00b0)\3\2\2\2\17\66@FZasw\177\u0086\u0094\u009e\u00a6\u00af";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
