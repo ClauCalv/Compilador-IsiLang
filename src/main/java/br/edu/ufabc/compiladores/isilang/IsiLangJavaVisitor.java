@@ -61,6 +61,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
             finalText.append(c);
         appendCommands(mainCommands, 0);
 
+        finalText.append(closeAll);
         return null;
     }
 
@@ -186,7 +187,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
             error("Variável não declarada.");
 
         ContextReturn t = visitExpr(ctx.expr());
-        if (variables.get(ID).setType(t.type))
+        if (!variables.get(ID).setType(t.type))
             error("Tipo incompátível com a expressão.");
 
         String command = ID + " = " + t.translationJava + ";\n";
