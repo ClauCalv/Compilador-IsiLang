@@ -168,15 +168,15 @@ public interface IsiLangListener extends ParseTreeListener {
 	 */
 	void exitExprText1(IsiLangParser.ExprText1Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link IsiLangParser#idText}.
+	 * Enter a parse tree produced by {@link IsiLangParser#id}.
 	 * @param ctx the parse tree
 	 */
-	void enterIdText(IsiLangParser.IdTextContext ctx);
+	void enterId(IsiLangParser.IdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link IsiLangParser#idText}.
+	 * Exit a parse tree produced by {@link IsiLangParser#id}.
 	 * @param ctx the parse tree
 	 */
-	void exitIdText(IsiLangParser.IdTextContext ctx);
+	void exitId(IsiLangParser.IdContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link IsiLangParser#stringTypeCast}.
 	 * @param ctx the parse tree
@@ -268,16 +268,6 @@ public interface IsiLangListener extends ParseTreeListener {
 	 */
 	void exitBool_literal(IsiLangParser.Bool_literalContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link IsiLangParser#idLogic}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdLogic(IsiLangParser.IdLogicContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link IsiLangParser#idLogic}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdLogic(IsiLangParser.IdLogicContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link IsiLangParser#exprLogic2}.
 	 * @param ctx the parse tree
 	 */
@@ -327,16 +317,6 @@ public interface IsiLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumLit(IsiLangParser.NumLitContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link IsiLangParser#idNum}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdNum(IsiLangParser.IdNumContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link IsiLangParser#idNum}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdNum(IsiLangParser.IdNumContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link IsiLangParser#numParen}.
 	 * @param ctx the parse tree

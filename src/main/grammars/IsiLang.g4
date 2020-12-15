@@ -80,10 +80,10 @@ exprText
 exprText1
     : stringTypeCast
     | stringLiteral
-    | idText
+    | id
     ;
 
-idText
+id
     : ID
     ;
 
@@ -108,7 +108,7 @@ exprLogic1
     | log_negation
     | parent_logic
     | bool_literal
-    | idLogic
+    | id
     ;
 
 aritmRelation
@@ -127,10 +127,6 @@ bool_literal
     : LOGIC_LITERAL
     ;
 
-idLogic
-    : ID
-    ;
-
 exprLogic2
     : LOG_OP exprLogic
     ;
@@ -145,17 +141,13 @@ exprAritm2
 
 exprAritm3
     : numLit
-    | idNum
+    | id
     | numParen
     | numCast
     ;
 
 numLit
     : NUMERIC_LITERAL
-    ;
-
-idNum
-    : ID
     ;
 
 numParen

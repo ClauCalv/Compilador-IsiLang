@@ -251,25 +251,29 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     @Override
     public ContextReturn visitExprText(IsiLangParser.ExprTextContext ctx) {
         ContextReturn exprText1 = visitExprText1(ctx.exprText1());
+        if(exprText1.type != TEXT)
+            error("Expressão não possui tipo texto");
+
         if(ctx.exprText2() == null){
             return exprText1;
         }
 
         ContextReturn exprText2 = visitExprText2(ctx.exprText2());
+        if(exprText2.type != TEXT)
+            error("Expressão não possui tipo texto");
 
         return new ContextReturn(TEXT, exprText1.translationJava + exprText2.translationJava);
     }
 
     @Override
-    public ContextReturn visitIdText(IsiLangParser.IdTextContext ctx) {
+    public ContextReturn visitId(IsiLangParser.IdContext ctx) {
         String ID = ctx.ID().getText();
         if(!variables.containsKey(ID))
             error("Variável não declarada.");
-        if(variables.get(ID).getType() != TEXT)
-            error("Tipo não compatível com tipo texto.");
-        return new ContextReturn(TEXT, ID);
+        if(variables.get(ID).getType() == UNKNOWN)
+            error("Variável não inicializada.");
+        return new ContextReturn(variables.get(ID).getType(), ID);
     }
-
 
     @Override
     public ContextReturn visitAritmRelation(IsiLangParser.AritmRelationContext ctx) {
@@ -313,16 +317,6 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     }
 
     @Override
-    public ContextReturn visitIdLogic(IsiLangParser.IdLogicContext ctx) {
-        String ID = ctx.ID().getText();
-        if(!variables.containsKey(ID))
-            error("Variável não declarada.");
-        if(variables.get(ID).getType() != LOGIC)
-            error("Tipo não compatível com booleano.");
-        return new ContextReturn(LOGIC, ID);
-    }
-
-    @Override
     public ContextReturn visitExprLogic2(IsiLangParser.ExprLogic2Context ctx) {
         ContextReturn t = visitExprLogic(ctx.exprLogic());
         String op = ctx.LOG_OP().getText();
@@ -334,11 +328,16 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     @Override
     public ContextReturn visitExprLogic(IsiLangParser.ExprLogicContext ctx) {
         ContextReturn exprLogic1 = visitExprLogic1(ctx.exprLogic1());
+        if(exprLogic1.type != LOGIC)
+            error("Expressão não possui tipo lógico");
+
         if(ctx.exprLogic2() == null){
             return exprLogic1;
         }
 
         ContextReturn exprLogic2 = visitExprLogic2(ctx.exprLogic2());
+        if(exprLogic2.type != LOGIC)
+            error("Expressão não possui tipo lógico");
 
         return new ContextReturn(LOGIC, exprLogic1.translationJava + exprLogic2.translationJava);
     }
@@ -366,10 +365,15 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
         List<TerminalNode> ops = ctx.ARIT_H();
 
         ContextReturn var0 = visitExprAritm3(values.get(0));
+        if(var0.type != NUMERIC)
+            error("Expressão não possui tipo numérico");
+
         StringBuilder content = new StringBuilder(var0.translationJava);
         int opNumber = ops.size();
         for (int i = 0; i < opNumber; i++) {
             ContextReturn var = visitExprAritm3(values.get(i+1));
+            if(var.type != NUMERIC)
+                error("Expressão não possui tipo numérico");
             String op = ops.get(i).getText();
             content.append(" ").append(op).append(" ").append(var.translationJava);
         }
@@ -381,16 +385,6 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitNumLit(IsiLangParser.NumLitContext ctx) {
         String text = ctx.NUMERIC_LITERAL().getText();
         return new ContextReturn(NUMERIC, text);
-    }
-
-    @Override
-    public ContextReturn visitIdNum(IsiLangParser.IdNumContext ctx) {
-        String ID = ctx.ID().getText();
-        if(!variables.containsKey(ID))
-            error("Variável não declarada.");
-        if(variables.get(ID).getType() != NUMERIC)
-            error("Tipo não compartível com número.");
-        return new ContextReturn(NUMERIC, ID);
     }
 
     @Override

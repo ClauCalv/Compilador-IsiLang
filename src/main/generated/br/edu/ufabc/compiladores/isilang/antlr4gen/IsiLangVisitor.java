@@ -107,11 +107,11 @@ public interface IsiLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprText1(IsiLangParser.ExprText1Context ctx);
 	/**
-	 * Visit a parse tree produced by {@link IsiLangParser#idText}.
+	 * Visit a parse tree produced by {@link IsiLangParser#id}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIdText(IsiLangParser.IdTextContext ctx);
+	T visitId(IsiLangParser.IdContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link IsiLangParser#stringTypeCast}.
 	 * @param ctx the parse tree
@@ -167,12 +167,6 @@ public interface IsiLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBool_literal(IsiLangParser.Bool_literalContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link IsiLangParser#idLogic}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIdLogic(IsiLangParser.IdLogicContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link IsiLangParser#exprLogic2}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -202,12 +196,6 @@ public interface IsiLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNumLit(IsiLangParser.NumLitContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link IsiLangParser#idNum}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIdNum(IsiLangParser.IdNumContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link IsiLangParser#numParen}.
 	 * @param ctx the parse tree

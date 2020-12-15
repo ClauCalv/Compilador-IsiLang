@@ -208,13 +208,13 @@ public class IsiLangBaseListener implements IsiLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdText(IsiLangParser.IdTextContext ctx) { }
+	@Override public void enterId(IsiLangParser.IdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdText(IsiLangParser.IdTextContext ctx) { }
+	@Override public void exitId(IsiLangParser.IdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -328,18 +328,6 @@ public class IsiLangBaseListener implements IsiLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdLogic(IsiLangParser.IdLogicContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIdLogic(IsiLangParser.IdLogicContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterExprLogic2(IsiLangParser.ExprLogic2Context ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -395,18 +383,6 @@ public class IsiLangBaseListener implements IsiLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNumLit(IsiLangParser.NumLitContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIdNum(IsiLangParser.IdNumContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIdNum(IsiLangParser.IdNumContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
