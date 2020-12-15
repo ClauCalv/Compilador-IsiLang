@@ -1,0 +1,25 @@
+programa
+
+declare x,y,z,w,k,e.
+
+escreva("Programa Teste Matemática").
+
+escreva ("Digite X").
+leia (e).
+x := num (e).
+
+y := x * 2.
+z := x / y.
+w := 1 + 3 * (x + 4 / 2).
+k := (3 * 2 - 9) - ((x / 4) + 3).
+
+escreva ("Y e igual a ").
+escreva (y).
+escreva ("Z e igual a ").
+escreva (z).
+escreva ("W e igual a ").
+escreva (w).
+escreva ("K e igual a ").
+escreva (k).
+
+fimprog.

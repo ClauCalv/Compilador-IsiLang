@@ -1,0 +1,13 @@
+programa
+declare x,y,z,e,f.
+escreva("Programa Teste Multiplicação").
+escreva ("Digite X").
+leia (e).
+x := num (e).
+escreva ("Digite Y").
+leia (f).
+y := num (f).
+z := x * y.
+escreva ("Z e igual a ").
+escreva (z).
+fimprog.

@@ -1,0 +1,10 @@
+programa
+declare a.
+a := 0.
+
+enquanto(a < 10) faca {
+    escreva(a).
+    a := a + 1.
+}.
+
+fimprog.

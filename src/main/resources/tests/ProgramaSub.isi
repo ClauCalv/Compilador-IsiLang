@@ -1,0 +1,13 @@
+programa
+declare a,b,c,e,f.
+escreva("Programa Teste Subtração").
+escreva ("Digite A").
+leia (e).
+a := num (e).
+escreva ("Digite B").
+leia (f).
+b := num (f).
+c := a - b.
+escreva ("C e igual a ").
+escreva (c).
+fimprog.

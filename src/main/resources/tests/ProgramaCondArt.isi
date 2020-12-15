@@ -1,0 +1,38 @@
+programa
+declare a, b, e, f.
+
+escreva("Programa Teste Condicional Numerica").
+
+escreva ("Digite A").
+leia (e).
+escreva ("Digite B").
+leia (f).
+
+a := num(e).
+b := num(f).
+
+se (a < b) entao {
+    escreva (1).
+}.
+
+se (a > b) entao {
+    escreva (2).
+}.
+
+se (a == b) entao {
+    escreva (3).
+}.
+
+se (a <= b) entao {
+    escreva (4).
+}.
+
+se (a >= b) entao {
+    escreva (5).
+}.
+
+se (a != b) entao {
+    escreva (6).
+}.
+
+fimprog.
