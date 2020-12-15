@@ -4,13 +4,15 @@ import br.edu.ufabc.compiladores.isilang.antlr4gen.IsiLangBaseVisitor;
 import br.edu.ufabc.compiladores.isilang.antlr4gen.IsiLangParser;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 import static br.edu.ufabc.compiladores.isilang.Variable.VariableState.NOT_INITIALIZED;
-import static br.edu.ufabc.compiladores.isilang.Variable.VariableType.TEXT;
-import static br.edu.ufabc.compiladores.isilang.Variable.VariableType.NUMERIC;
-import static br.edu.ufabc.compiladores.isilang.Variable.VariableType.LOGIC;
-import static br.edu.ufabc.compiladores.isilang.Variable.VariableType.UNKNOWN;
+import static br.edu.ufabc.compiladores.isilang.Variable.VariableType.*;
 
 public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
 
@@ -57,8 +59,9 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
 
         finalText = new StringBuilder();
         finalText.append(importCommand1).append(classDeclare).append(mainDeclare).append(initializeScanner);
-        for (Command c : varDecls)
-            finalText.append(c);
+        for (Command c : varDecls) {
+            finalText.append(c.getCommand());
+        }
         appendCommands(mainCommands, 0);
 
         finalText.append(closeAll);
@@ -82,7 +85,20 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     public ContextReturn visitVarDeclare(IsiLangParser.VarDeclareContext ctx) {
         String ID = ctx.ID().getText();
 
-        List<String> reserved_words = Arrays.asList("texto", "num", "programa", "fimprog", "declare", "se", "entao", "senao", "enquanto", "faca", "leia", "escreva", "Verdadeiro", "Falso");
+        List<String> reserved_words = Arrays.asList("texto",
+                                                    "num",
+                                                    "programa",
+                                                    "fimprog",
+                                                    "declare",
+                                                    "se",
+                                                    "entao",
+                                                    "senao",
+                                                    "enquanto",
+                                                    "faca",
+                                                    "leia",
+                                                    "escreva",
+                                                    "Verdadeiro",
+                                                    "Falso");
 
         if (reserved_words.contains(ID))
             error(ID + " é uma palavra reservada.");
@@ -122,9 +138,11 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
 
     @Override
     public ContextReturn visitCmdEscrita(IsiLangParser.CmdEscritaContext ctx) {
-        ContextReturn expr = visitExpr(ctx.expr());
+        final String content = ctx.expr() == null
+                               ? visitId(ctx.id()).translationJava
+                               : visitExpr(ctx.expr()).translationJava;
 
-        String command = "System.out.println(" + expr.translationJava + ");\n";
+        String command = "System.out.println(" + content + ");\n";
         commandStack.peek().add(new Command(command));
         return null;
     }
@@ -139,7 +157,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
         String midExpr = "";
         String endExpr = "";
 
-        List<Command> thenCommands = new ArrayList<Command>();
+        List<Command> thenCommands = new ArrayList<>();
         List<Command> elseCommands = null;
         commandStack.push(thenCommands);
         visitThenCmd(ctx.thenCmd());
@@ -293,7 +311,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
         ContextReturn ex2 = visitExprAritm(ctx.ex2);
         String rel_op = ctx.REL_OP().getText();
 
-        String content = "(" + ex1 + ")" + rel_op + "(" + ex2 + ")";
+        String content = "(" + ex1.translationJava + ")" + rel_op + "(" + ex2.translationJava + ")";
         return new ContextReturn(LOGIC, content);
     }
 
