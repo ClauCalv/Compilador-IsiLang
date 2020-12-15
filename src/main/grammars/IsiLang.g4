@@ -36,7 +36,7 @@ cmdLeitura
     ;
 
 cmdEscrita
-    : CMD_WT AP ( expr ) FP
+    : CMD_WT AP ( id | expr ) FP
     ;
 
 cmdIf
