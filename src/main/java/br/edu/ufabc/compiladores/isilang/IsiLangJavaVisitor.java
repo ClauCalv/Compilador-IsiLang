@@ -318,14 +318,14 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     @Override
     public ContextReturn visitLog_negation(IsiLangParser.Log_negationContext ctx) {
         ContextReturn expr = visitExprLogic(ctx.exprLogic());
-        String content = "!(" + expr + ")";
+        String content = "!(" + expr.translationJava + ")";
         return new ContextReturn(LOGIC, content);
     }
 
     @Override
     public ContextReturn visitParent_logic(IsiLangParser.Parent_logicContext ctx) {
         ContextReturn expr = visitExprLogic(ctx.exprLogic());
-        String content = "(" + expr + ")";
+        String content = "(" + expr.translationJava + ")";
         return new ContextReturn(LOGIC, content);
     }
 
@@ -420,7 +420,7 @@ public class IsiLangJavaVisitor extends IsiLangBaseVisitor<ContextReturn> {
     @Override
     public ContextReturn visitNumParen(IsiLangParser.NumParenContext ctx) {
         ContextReturn expr = visitExprAritm(ctx.exprAritm());
-        String content = "(" + expr + ")";
+        String content = "(" + expr.translationJava + ")";
         return new ContextReturn(NUMERIC, content);
     }
 
